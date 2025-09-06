@@ -171,7 +171,7 @@
         }
 
         .slider {
-            width: 70px;
+            width: 100px;
             height: 5px;
             background: #ddd;
             border-radius: 3px;
@@ -190,7 +190,7 @@
 
         .hand-container {
             width: 100%;
-            height: 50px;
+            height: 70px;
             background: transparent;
             border-radius: 12px;
             position: relative;
@@ -217,8 +217,8 @@
         }
 
         .shapes-area {
-            width: 220px;
-            height: 80px;
+            width: 160px;
+            height: 140px;
             background: #f8f8f8;
             border: 2px solid #ddd;
             border-radius: 12px;
@@ -238,15 +238,15 @@
             background: #2196f3;
             border: 3px solid #333;
             border-radius: 6px;
-            top: 20px;
-            left: 40px;
+            top: 50px;
+            left: 60px;
         }
 
         .diamond-container {
             display: flex;
             justify-content: space-around;
             align-items: center;
-            width: 220px;
+            width: 160px;
             height: 60px;
         }
 
@@ -318,7 +318,7 @@
                             <button class="btn" onclick="adjustWaves(1)">+</button>
                             <button class="btn" onclick="adjustWaves(-1)">-</button>
                         </div>
-                        <input type="range" min="1" max="10" value="5" class="slider" onchange="updateWaveSpeed(this.value)">
+                        <input type="range" min="1" max="10" value="5" class="slider" onchange="updateWaveSpeed(this.value)" style="width: 74px;">
                     </div>
                     <div class="wave-container" onclick="ripple(event)">
                         <canvas class="wave-canvas" id="waveCanvas" width="160" height="60"></canvas>
@@ -339,13 +339,15 @@
         
         <div class="module">
             <div class="module-content">
-                <div class="controls">
-                    <button class="btn" onclick="addSquare()">+</button>
-                    <button class="btn" onclick="removeSquare()">-</button>
-                    <button class="btn" onclick="toggleBouncing()">○</button>
-                </div>
-                <div class="shapes-area" id="shapesArea">
-                    <div class="shape square" id="square0"></div>
+                <div style="display: flex; align-items: center; gap: 15px;">
+                    <div class="shapes-area" id="shapesArea">
+                        <div class="shape square" id="square0"></div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <button class="btn" onclick="addSquare()">+</button>
+                        <button class="btn" onclick="removeSquare()">-</button>
+                        <button class="btn" onclick="toggleBouncing()">○</button>
+                    </div>
                 </div>
                 <div class="label">boing me</div>
             </div>
@@ -371,7 +373,7 @@
         let waveAmp = 15;
         let waveSpeed = 2;
         let waveColor = '#00ff41';
-        let squares = [{x: 40, y: 20, vx: 0, vy: 0}];
+        let squares = [{x: 60, y: 50, vx: 3, vy: 2}];
         let nextSquareId = 1;
         let bouncing = false;
         let colors = ['#2196f3', '#e91e63', '#4caf50', '#ff9800', '#9c27b0'];
@@ -470,10 +472,10 @@
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            triangle.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) scale(1.5)`;
+            triangle.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) rotate(45deg) scale(1.5)`;
             
             setTimeout(() => {
-                triangle.style.transform = 'translate(-50%, -50%) scale(1)';
+                triangle.style.transform = 'translate(-50%, -50%) rotate(45deg) scale(1)';
             }, 600);
         }
 
@@ -483,8 +485,8 @@
             square.className = 'shape square';
             square.id = 'square' + nextSquareId;
             
-            const x = Math.random() * (container.offsetWidth - 40);
-            const y = Math.random() * (container.offsetHeight - 40);
+            const x = Math.random() * 120;
+            const y = Math.random() * 100;
             square.style.left = x + 'px';
             square.style.top = y + 'px';
             
@@ -504,10 +506,17 @@
             nextSquareId--;
         }
 
-        function activateSquares() {
+        function toggleBouncing() {
             bouncing = !bouncing;
             
             if (bouncing) {
+                squares.forEach(sq => {
+                    if (sq.vx === 0 && sq.vy === 0) {
+                        sq.vx = (Math.random() - 0.5) * 6;
+                        sq.vy = (Math.random() - 0.5) * 6;
+                    }
+                });
+                
                 const container = document.getElementById('shapesArea');
                 
                 function animate() {
