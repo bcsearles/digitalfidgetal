@@ -1,8 +1,3 @@
-<h1>digitalfidgetal</h1>
-<!-- or -->
-<title>digitalfidgetal</title>
-<html lang="en">
-    
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -363,7 +358,7 @@
             right: 9px; 
         }
 
-        .spinning .spinner-triangle {
+        .spinning .fidget-spinner {
             animation: spin 2s linear infinite;
         }
 
@@ -474,75 +469,95 @@
             
             <div class="title">DIGITAL FIDGETAL</div>
             
-            <!-- Ball Balance Controls -->
-            <div class="controls">
-                <button class="btn" onclick="changeBallColor()">+</button>
-                <button class="btn" onclick="changeBallColor(true)">-</button>
+            <!-- Ball Balance Module -->
+            <div class="module">
+                <div class="module-content">
+                    <div class="controls">
+                        <button class="btn" onclick="changeBallColor()">+</button>
+                        <button class="btn" onclick="changeBallColor(true)">-</button>
+                    </div>
+                    
+                    <div class="ball-track">
+                        <div class="ball" id="ball"></div>
+                    </div>
+                    
+                    <div class="tilt-controls">
+                        <div class="arrow" onclick="tiltBall(-10)">↑</div>
+                        <div class="triangle"></div>
+                        <div class="arrow" onclick="tiltBall(10)">↓</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="ball-track">
-                <div class="ball" id="ball"></div>
+            <!-- Wave Generator Module -->
+            <div class="module">
+                <div class="module-content">
+                    <div class="wave-controls">
+                        <button class="btn" onclick="adjustWaves(1)">+</button>
+                        <button class="btn" onclick="adjustWaves(-1)">-</button>
+                    </div>
+                    
+                    <div class="wave-container">
+                        <canvas class="wave-canvas" id="waveCanvas" width="200" height="80"></canvas>
+                    </div>
+                    
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="5" class="custom-slider" 
+                               onchange="updateWaveSettings(this.value)">
+                    </div>
+                </div>
             </div>
             
-            <div class="tilt-controls">
-                <div class="arrow" onclick="tiltBall(-10)">↑</div>
-                <div class="triangle"></div>
-                <div class="arrow" onclick="tiltBall(10)">↓</div>
+            <!-- Stretchy Hand Module -->
+            <div class="module">
+                <div class="module-content">
+                    <div class="controls">
+                        <button class="btn" onclick="changeHandColor()">+</button>
+                        <button class="btn" onclick="changeHandColor(true)">-</button>
+                    </div>
+                    
+                    <div class="hand-container" onclick="throwHand(event)">
+                        <div class="stretchy-hand" id="stretchyHand">🖐️</div>
+                    </div>
+                </div>
             </div>
             
-            <!-- Wave Generator Controls -->
-            <div class="wave-controls">
-                <button class="btn" onclick="adjustWaves(1)">+</button>
-                <button class="btn" onclick="adjustWaves(-1)">-</button>
+            <!-- Shapes Module -->
+            <div class="module">
+                <div class="module-content">
+                    <div class="controls">
+                        <button class="btn" onclick="changeShapeColor()">+</button>
+                        <button class="btn" onclick="changeShapeColor(true)">-</button>
+                    </div>
+                    
+                    <div class="shapes-area">
+                        <div class="shape circle" id="circle"></div>
+                        <div class="shape square" id="square"></div>
+                        <div class="color-dot" id="colorDot"></div>
+                    </div>
+                    
+                    <input type="range" min="0" max="360" value="180" class="color-slider" 
+                           onchange="updateShapeColors(this.value)">
+                </div>
             </div>
             
-            <div class="wave-container">
-                <canvas class="wave-canvas" id="waveCanvas" width="200" height="80"></canvas>
-            </div>
-            
-            <div class="slider-container">
-                <input type="range" min="1" max="10" value="5" class="custom-slider" 
-                       onchange="updateWaveSettings(this.value)">
-            </div>
-            
-            <!-- Stretchy Hand Controls -->
-            <div class="controls">
-                <button class="btn" onclick="changeHandColor()">+</button>
-                <button class="btn" onclick="changeHandColor(true)">-</button>
-            </div>
-            
-            <div class="hand-container" onclick="throwHand(event)">
-                <div class="stretchy-hand" id="stretchyHand">🖐️</div>
-            </div>
-            
-            <!-- Shapes Controls -->
-            <div class="controls">
-                <button class="btn" onclick="changeShapeColor()">+</button>
-                <button class="btn" onclick="changeShapeColor(true)">-</button>
-            </div>
-            
-            <div class="shapes-area">
-                <div class="shape circle" id="circle"></div>
-                <div class="shape square" id="square"></div>
-                <div class="color-dot" id="colorDot"></div>
-            </div>
-            
-            <input type="range" min="0" max="360" value="180" class="color-slider" 
-                   onchange="updateShapeColors(this.value)">
-            
-            <!-- Fidget Spinner Controls -->
-            <div class="spinner-controls">
-                <button class="btn" onclick="changeSpinnerColor()">+</button>
-                <button class="btn" onclick="changeSpinnerColor(true)">-</button>
-                <button class="btn" onclick="changeSpinnerColor()">+</button>
-            </div>
-            
-            <div class="spinners-container">
-                <div class="fidget-spinner" onclick="spinSpinner(this)">
-                    <div class="spinner-center"></div>
-                    <div class="spinner-blade blade1"></div>
-                    <div class="spinner-blade blade2"></div>
-                    <div class="spinner-blade blade3"></div>
+            <!-- Fidget Spinner Module -->
+            <div class="module">
+                <div class="module-content">
+                    <div class="spinner-controls">
+                        <button class="btn" onclick="changeSpinnerColor()">+</button>
+                        <button class="btn" onclick="changeSpinnerColor(true)">-</button>
+                        <button class="btn" onclick="changeSpinnerColor()">+</button>
+                    </div>
+                    
+                    <div class="spinners-container">
+                        <div class="fidget-spinner" onclick="spinSpinner(this)">
+                            <div class="spinner-center"></div>
+                            <div class="spinner-blade blade1"></div>
+                            <div class="spinner-blade blade2"></div>
+                            <div class="spinner-blade blade3"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -651,7 +666,6 @@
                 state.shapeColorIndex = (state.shapeColorIndex + 1) % state.shapeColors.length;
             }
             document.getElementById('circle').style.background = state.shapeColors[state.shapeColorIndex];
-            document.getElementById('square').style.background = state.shapeColors[(state.shapeColorIndex + 1) % state.shapeColors.length];
         }
 
         function updateShapeColors(value) {
