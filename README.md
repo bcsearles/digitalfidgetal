@@ -3,9 +3,12 @@
 <title>digitalfidgetal</title>
 <html lang="en">
     
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Fidgetal</title>
     <style>
         * {
             margin: 0;
@@ -371,8 +374,9 @@
 
         .spinner-controls {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             margin-top: 15px;
+            gap: 10px;
         }
 
         /* Info Panel */
@@ -468,86 +472,77 @@
                 </div>
             </div>
             
+            <div class="title">DIGITAL FIDGETAL</div>
             
-            <!-- Wave Generator Section -->
-            <div class="fidget-section wave-section">
-                <div class="wave-controls">
-                    <button class="btn" onclick="adjustWaves(1)">+</button>
-                    <button class="btn" onclick="adjustWaves(-1)">-</button>
-                </div>
-                
-                <div class="wave-container">
-                    <canvas class="wave-canvas" id="waveCanvas" width="280" height="80"></canvas>
-                </div>
-                
-                <div class="slider-container">
-                    <input type="range" min="1" max="10" value="5" class="custom-slider" 
-                           onchange="updateWaveSettings(this.value)">
-                </div>
+            <!-- Ball Balance Controls -->
+            <div class="controls">
+                <button class="btn" onclick="changeBallColor()">+</button>
+                <button class="btn" onclick="changeBallColor(true)">-</button>
             </div>
             
-            <!-- Ball Balance Section -->
-            <div class="fidget-section ball-section">
-                <div class="controls">
-                    <button class="btn" onclick="changeBallColor()">+</button>
-                    <button class="btn" onclick="changeBallColor(true)">-</button>
-                </div>
-                
-                <div class="ball-track">
-                    <div class="ball" id="ball"></div>
-                </div>
-                
-                <div class="tilt-controls">
-                    <div class="arrow" onclick="tiltBall(-10)">↑</div>
-                    <div class="triangle"></div>
-                    <div class="arrow" onclick="tiltBall(10)">↓</div>
-                </div>
+            <div class="ball-track">
+                <div class="ball" id="ball"></div>
             </div>
             
-            <!-- Stretchy Hand Section -->
-            <div class="fidget-section hand-section">
-                <div class="controls">
-                    <button class="btn" onclick="changeHandColor()">+</button>
-                    <button class="btn" onclick="changeHandColor(true)">-</button>
-                </div>
-                
-                <div class="hand-container" onclick="throwHand(event)">
-                    <div class="stretchy-hand" id="stretchyHand">🖐️</div>
-                </div>
+            <div class="tilt-controls">
+                <div class="arrow" onclick="tiltBall(-10)">↑</div>
+                <div class="triangle"></div>
+                <div class="arrow" onclick="tiltBall(10)">↓</div>
             </div>
             
-            <!-- Shapes Section -->
-            <div class="fidget-section shapes-section">
-                <div class="controls">
-                    <button class="btn" onclick="changeShapeColor()">+</button>
-                    <button class="btn" onclick="changeShapeColor(true)">-</button>
-                </div>
-                
-                <div class="shapes-area">
-                    <div class="shape circle" id="circle"></div>
-                    <div class="shape square" id="square"></div>
-                    <div class="color-dot" id="colorDot"></div>
-                </div>
-                
-                <input type="range" min="0" max="360" value="180" class="color-slider" 
-                       onchange="updateShapeColors(this.value)">
+            <!-- Wave Generator Controls -->
+            <div class="wave-controls">
+                <button class="btn" onclick="adjustWaves(1)">+</button>
+                <button class="btn" onclick="adjustWaves(-1)">-</button>
             </div>
             
-            <!-- Fidget Spinner Section -->
-            <div class="fidget-section spinner-section">
-                <div class="spinner-controls">
-                    <button class="btn" onclick="changeSpinnerColor()">+</button>
-                    <button class="btn" onclick="changeSpinnerColor(true)">-</button>
-                    <button class="btn" onclick="changeSpinnerColor()">+</button>
-                </div>
-                
-                <div class="spinners-container">
-                    <div class="fidget-spinner" onclick="spinSpinner(this)">
-                        <div class="spinner-center"></div>
-                        <div class="spinner-blade blade1"></div>
-                        <div class="spinner-blade blade2"></div>
-                        <div class="spinner-blade blade3"></div>
-                    </div>
+            <div class="wave-container">
+                <canvas class="wave-canvas" id="waveCanvas" width="200" height="80"></canvas>
+            </div>
+            
+            <div class="slider-container">
+                <input type="range" min="1" max="10" value="5" class="custom-slider" 
+                       onchange="updateWaveSettings(this.value)">
+            </div>
+            
+            <!-- Stretchy Hand Controls -->
+            <div class="controls">
+                <button class="btn" onclick="changeHandColor()">+</button>
+                <button class="btn" onclick="changeHandColor(true)">-</button>
+            </div>
+            
+            <div class="hand-container" onclick="throwHand(event)">
+                <div class="stretchy-hand" id="stretchyHand">🖐️</div>
+            </div>
+            
+            <!-- Shapes Controls -->
+            <div class="controls">
+                <button class="btn" onclick="changeShapeColor()">+</button>
+                <button class="btn" onclick="changeShapeColor(true)">-</button>
+            </div>
+            
+            <div class="shapes-area">
+                <div class="shape circle" id="circle"></div>
+                <div class="shape square" id="square"></div>
+                <div class="color-dot" id="colorDot"></div>
+            </div>
+            
+            <input type="range" min="0" max="360" value="180" class="color-slider" 
+                   onchange="updateShapeColors(this.value)">
+            
+            <!-- Fidget Spinner Controls -->
+            <div class="spinner-controls">
+                <button class="btn" onclick="changeSpinnerColor()">+</button>
+                <button class="btn" onclick="changeSpinnerColor(true)">-</button>
+                <button class="btn" onclick="changeSpinnerColor()">+</button>
+            </div>
+            
+            <div class="spinners-container">
+                <div class="fidget-spinner" onclick="spinSpinner(this)">
+                    <div class="spinner-center"></div>
+                    <div class="spinner-blade blade1"></div>
+                    <div class="spinner-blade blade2"></div>
+                    <div class="spinner-blade blade3"></div>
                 </div>
             </div>
         </div>
