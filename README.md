@@ -36,34 +36,25 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .browser-bar {
-            display: none;
-        }
-
-        .browser-dots {
-            display: flex;
-            gap: 6px;
-        }
-
-        .dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: #ddd;
-        }
-
         .title {
             text-align: center;
-            font-size: 16px;
+            font-size: 32px;
             font-weight: bold;
             letter-spacing: 2px;
             color: #333;
-            margin-bottom: 20px;
-            padding: 0 20px;
+            margin-bottom: 0px;
+            padding: 8px 20px 2px 20px;
             border-top: 2px dashed #333;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 20px;
+            font-style: italic;
+            padding: 2px 20px 8px 20px;
             border-bottom: 2px dashed #333;
-            padding-top: 8px;
-            padding-bottom: 8px;
         }
 
         .module {
@@ -122,6 +113,7 @@
             position: relative;
             overflow: hidden;
             margin: 10px 0;
+            cursor: pointer;
         }
 
         .ball {
@@ -144,23 +136,19 @@
             justify-content: center;
         }
 
-        .tilt-arrows {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-        }
-
         .arrow {
             font-size: 24px;
             color: #666;
             cursor: pointer;
             user-select: none;
             transition: color 0.2s;
+            padding: 5px;
         }
 
         .arrow:hover {
             color: #333;
+            background: #f0f0f0;
+            border-radius: 5px;
         }
 
         .triangle {
@@ -179,6 +167,7 @@
             border-radius: 10px;
             position: relative;
             margin: 10px 0;
+            cursor: pointer;
         }
 
         .wave-canvas {
@@ -241,17 +230,6 @@
             cursor: grab;
         }
 
-        .hand-trail {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 2px;
-            background: #4CAF50;
-            transform-origin: top;
-            opacity: 0.6;
-            border-radius: 1px;
-        }
-
         /* Shapes Module */
         .shapes-area {
             width: 280px;
@@ -288,24 +266,6 @@
             transform: rotate(45deg);
             top: 32px;
             left: 150px;
-        }
-
-        .color-slider {
-            width: 200px;
-            margin: 10px 0;
-            display: none;
-        }
-
-        .color-dot {
-            width: 30px;
-            height: 30px;
-            background: #8B5CF6;
-            border-radius: 50%;
-            position: absolute;
-            right: 40px;
-            top: 50%;
-            transform: translateY(-50%);
-            border: 2px solid #333;
         }
 
         /* Fidget Spinners */
@@ -359,10 +319,6 @@
             right: 9px; 
         }
 
-        .giant-triangle.spinning {
-            animation: spin 2s linear infinite;
-        }
-
         .fidget-spinner.spinning {
             animation: spin 2s linear infinite;
         }
@@ -370,20 +326,6 @@
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
-        }
-
-        .spinner-controls {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-            gap: 10px;
-        }
-
-        /* Dragging states */
-        .dragging {
-            opacity: 0.7;
-            transform: rotate(5deg);
-            z-index: 1000;
         }
 
         @keyframes ripple {
@@ -415,17 +357,9 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Main Fidget Device -->
         <div class="fidget-device">
-            <div class="browser-bar">
-                <div class="browser-dots">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                </div>
-            </div>
-            
             <div class="title">DIGITAL FIDGETAL</div>
+            <div class="subtitle">the remedy for conference call restlessness</div>
             
             <!-- Ball Balance Module -->
             <div class="module">
@@ -438,6 +372,10 @@
                         <div class="arrow" onclick="tiltBall(-10)">←</div>
                         <div class="triangle"></div>
                         <div class="arrow" onclick="tiltBall(10)">→</div>
+                    </div>
+                    
+                    <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
+                        doink me
                     </div>
                 </div>
             </div>
@@ -458,6 +396,10 @@
                         <input type="range" min="1" max="10" value="5" class="custom-slider" 
                                onchange="updateWaveSettings(this.value)">
                     </div>
+                    
+                    <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
+                        tune me
+                    </div>
                 </div>
             </div>
             
@@ -466,6 +408,10 @@
                 <div class="module-content">
                     <div class="hand-container" onclick="throwHand(event)">
                         <div class="stretchy-hand" id="stretchyHand">🖐️</div>
+                    </div>
+                    
+                    <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
+                        dap me
                     </div>
                 </div>
             </div>
@@ -477,15 +423,16 @@
                         <button class="btn" onclick="changeShapeColor()" style="display: flex; align-items: center; justify-content: center;">
                             <div style="width: 12px; height: 12px; background: #666; border-radius: 50%;"></div>
                         </button>
-                        <button class="btn" onclick="toggleShapeBouncing()" style="width: 60px; font-size: 12px;">BOUNCE</button>
+                        <button class="btn" onclick="toggleShapeBouncing()" style="width: 40px; height: 40px; font-size: 20px; display: flex; align-items: center; justify-content: center;">○</button>
                     </div>
                     
                     <div class="shapes-area">
                         <div class="shape circle" id="circle"></div>
                     </div>
                     
-                    <input type="range" min="0" max="360" value="180" class="color-slider" 
-                           onchange="updateShapeColors(this.value)">
+                    <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
+                        boing me
+                    </div>
                 </div>
             </div>
             
@@ -500,6 +447,10 @@
                             <div class="spinner-blade blade3"></div>
                         </div>
                     </div>
+                    
+                    <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
+                        spin me
+                    </div>
                 </div>
             </div>
         </div>
@@ -511,6 +462,8 @@
             ballColors: ['#ff4444', '#44ff44', '#4444ff', '#ffff44', '#ff44ff', '#44ffff'],
             ballColorIndex: 0,
             ballPosition: 125,
+            ballVelocity: 0,
+            ballMomentum: null,
             handColors: ['🖐️', '✋', '🤚', '👐'],
             handColorIndex: 0,
             waveSettings: { frequency: 5, amplitude: 20, speed: 2, color: '#00ff41' },
@@ -532,13 +485,37 @@
         }
 
         function tiltBall(direction) {
-            state.ballPosition = Math.max(15, Math.min(355, state.ballPosition + direction));
+            state.ballPosition = Math.max(15, Math.min(235, state.ballPosition + direction));
+            document.getElementById('ball').style.left = state.ballPosition + 'px';
+        }
+
+        function updateBallMomentum() {
+            if (Math.abs(state.ballVelocity) < 0.5) {
+                clearInterval(state.ballMomentum);
+                state.ballMomentum = null;
+                state.ballVelocity = 0;
+                return;
+            }
+            
+            state.ballPosition += state.ballVelocity;
+            state.ballPosition = Math.max(15, Math.min(235, state.ballPosition));
+            
+            // Bounce off walls
+            if (state.ballPosition <= 15 || state.ballPosition >= 235) {
+                state.ballVelocity *= -0.7;
+                changeBallColor();
+            }
+            
+            // Apply friction
+            state.ballVelocity *= 0.95;
+            
             document.getElementById('ball').style.left = state.ballPosition + 'px';
         }
 
         // Wave functions
         function drawWaves() {
             const canvas = document.getElementById('waveCanvas');
+            if (!canvas) return;
             const ctx = canvas.getContext('2d');
             const time = Date.now() * 0.01 * state.waveSettings.speed;
             
@@ -589,6 +566,7 @@
             
             setTimeout(() => {
                 hand.style.transform = 'translate(-50%, -50%) scale(1)';
+                changeHandColor();
             }, 600);
         }
 
@@ -600,13 +578,10 @@
                 state.shapeColorIndex = (state.shapeColorIndex + 1) % state.shapeColors.length;
             }
             document.getElementById('circle').style.background = state.shapeColors[state.shapeColorIndex];
-            document.getElementById('square').style.background = state.shapeColors[(state.shapeColorIndex + 1) % state.shapeColors.length];
-        }
-
-        function updateShapeColors(value) {
-            const hue = value;
-            document.getElementById('circle').style.background = `hsl(${hue}, 70%, 60%)`;
-            document.getElementById('colorDot').style.background = `hsl(${hue}, 70%, 60%)`;
+            const square = document.getElementById('square');
+            if (square) {
+                square.style.background = state.shapeColors[(state.shapeColorIndex + 1) % state.shapeColors.length];
+            }
         }
 
         function toggleShapeBouncing() {
@@ -614,13 +589,11 @@
             const container = circle.parentNode;
             
             if (state.shapeAnimation.isAnimating) {
-                // Stop bouncing
                 state.shapeAnimation.isAnimating = false;
                 circle.style.transition = 'all 0.3s ease';
                 return;
             }
             
-            // Start bouncing
             state.shapeAnimation.isAnimating = true;
             circle.style.transition = 'none';
             
@@ -635,7 +608,6 @@
                 x += velocityX;
                 y += velocityY;
                 
-                // Bounce off walls
                 const containerWidth = container.offsetWidth;
                 const containerHeight = container.offsetHeight;
                 const circleSize = 50;
@@ -643,11 +615,13 @@
                 if (x <= 0 || x >= containerWidth - circleSize) {
                     velocityX = -velocityX;
                     x = Math.max(0, Math.min(containerWidth - circleSize, x));
+                    changeShapeColor();
                 }
                 
                 if (y <= 0 || y >= containerHeight - circleSize) {
                     velocityY = -velocityY;
                     y = Math.max(0, Math.min(containerHeight - circleSize, y));
+                    changeShapeColor();
                 }
                 
                 circle.style.left = x + 'px';
@@ -675,6 +649,7 @@
 
         function spinSpinner(spinner) {
             spinner.classList.add('spinning');
+            changeSpinnerColor();
             setTimeout(() => {
                 spinner.classList.remove('spinning');
             }, 2000);
@@ -682,16 +657,19 @@
 
         // Shape dragging
         function makeShapesDraggable() {
-            ['square'].forEach(id => {
+            ['circle', 'square'].forEach(id => {
                 const shape = document.getElementById(id);
+                if (!shape) return;
+                
                 let isDragging = false;
                 
                 shape.addEventListener('mousedown', (e) => {
-                    if (state.shapeAnimation.isAnimating) return; // Don't allow dragging while bouncing
+                    if (state.shapeAnimation.isAnimating) return;
                     
                     isDragging = true;
-                    const startX = e.clientX - shape.offsetLeft;
-                    const startY = e.clientY - shape.offsetTop;
+                    const shapeRect = shape.getBoundingClientRect();
+                    const startX = e.clientX - shapeRect.left - shape.offsetWidth/2;
+                    const startY = e.clientY - shapeRect.top - shape.offsetHeight/2;
                     
                     function moveShape(e) {
                         if (isDragging) {
@@ -702,10 +680,6 @@
                             
                             shape.style.left = x + 'px';
                             shape.style.top = y + 'px';
-                            
-                            // Update animation state position
-                            state.shapeAnimation.x = x;
-                            state.shapeAnimation.y = y;
                         }
                     }
                     
@@ -719,29 +693,24 @@
                     document.addEventListener('mouseup', stopDragging);
                 });
                 
-                // Mouse wheel to resize
                 shape.addEventListener('wheel', (e) => {
                     e.preventDefault();
-                    const currentSize = parseInt(shape.style.width) || 35;
+                    const currentSize = parseInt(shape.style.width) || (id === 'circle' ? 50 : 35);
                     const delta = e.deltaY > 0 ? -5 : 5;
                     const newSize = Math.max(20, Math.min(80, currentSize + delta));
                     shape.style.width = newSize + 'px';
                     shape.style.height = newSize + 'px';
-                    state.shapeAnimation.size = newSize;
                 });
             });
         }
 
         // Initialize everything
         function init() {
-            // Start wave animation
             drawWaves();
-            
-            // Make shapes draggable
             makeShapesDraggable();
+            resetSnakeGame();
             
-            // Add click feedback to all buttons
-            document.querySelectorAll('.btn').forEach(btn => {
+            document.querySelectorAll('.btn, .snake-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     btn.style.transform = 'scale(0.95)';
                     setTimeout(() => {
@@ -750,20 +719,22 @@
                 });
             });
             
-            // Add interactive feedback to ball track
             document.querySelector('.ball-track').addEventListener('click', (e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 const x = e.clientX - rect.left;
-                const ballPosition = Math.max(15, Math.min(355, x - 15));
-                state.ballPosition = ballPosition;
-                document.getElementById('ball').style.left = ballPosition + 'px';
+                const targetPosition = Math.max(15, Math.min(235, x - 15));
+                
+                const direction = targetPosition - state.ballPosition;
+                state.ballVelocity = direction * 0.15;
+                
+                if (!state.ballMomentum) {
+                    state.ballMomentum = setInterval(updateBallMomentum, 16);
+                }
             });
             
-            // Add wave canvas click interaction
             document.getElementById('waveCanvas').addEventListener('click', (e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 const x = e.clientX - rect.left;
-                // Create wave ripple effect at click point
                 const ripple = document.createElement('div');
                 ripple.style.position = 'absolute';
                 ripple.style.left = x + 'px';
@@ -774,13 +745,13 @@
                 ripple.style.borderRadius = '50%';
                 ripple.style.transform = 'translate(-50%, -50%)';
                 ripple.style.animation = 'ripple 1s ease-out forwards';
+                ripple.style.pointerEvents = 'none';
                 e.currentTarget.parentNode.appendChild(ripple);
                 
                 setTimeout(() => ripple.remove(), 1000);
             });
         }
 
-        // Start when page loads
         window.addEventListener('load', init);
     </script>
 </body>
