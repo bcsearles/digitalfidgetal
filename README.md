@@ -360,6 +360,10 @@
             right: 9px; 
         }
 
+        .giant-triangle.spinning {
+            animation: spin 2s linear infinite;
+        }
+
         .fidget-spinner.spinning {
             animation: spin 2s linear infinite;
         }
