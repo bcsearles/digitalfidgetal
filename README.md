@@ -126,13 +126,15 @@
         .ball {
             width: 30px;
             height: 30px;
-            background: #ff4444;
+            background: #2196f3;
+            border: 2px solid #000;
             border-radius: 50%;
             position: absolute;
             top: 15px;
             left: 125px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
         }
 
         .tilt-controls {
@@ -143,34 +145,12 @@
             justify-content: center;
         }
 
-        .arrow {
-            font-size: 24px;
-            color: #666;
-            cursor: pointer;
-            user-select: none;
-            transition: color 0.2s;
-            padding: 5px;
-        }
-
-        .arrow:hover {
-            color: #333;
-            background: #f0f0f0;
-            border-radius: 5px;
-        }
-
-        .triangle {
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-bottom: 12px solid #999;
-        }
-
         /* Wave Generator */
         .wave-container {
             width: 200px;
             height: 80px;
             background: #000;
+            border: 2px solid #000;
             border-radius: 10px;
             position: relative;
             margin: 10px 0;
@@ -262,81 +242,49 @@
         .circle {
             width: 50px;
             height: 50px;
-            background: white;
+            background: #2196f3;
             border: 3px solid #333;
-            border-radius: 50%;
+            border-radius: 8px;
             top: 25px;
             left: 50px;
         }
 
-        .square {
-            width: 35px;
-            height: 35px;
-            background: white;
-            border: 3px solid #333;
-            transform: rotate(45deg);
-            top: 32px;
-            left: 150px;
-        }
-
-        /* Fidget Spinners */
-        .spinners-container {
+        /* Spinning Diamonds */
+        .diamond-container {
             display: flex;
-            gap: 30px;
-            justify-content: center;
+            justify-content: space-around;
+            align-items: center;
+            width: 280px;
+            height: 90px;
             margin: 10px 0;
         }
 
-        .fidget-spinner {
-            width: 70px;
-            height: 70px;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .spinner-center {
-            width: 20px;
-            height: 20px;
-            background: #333;
-            border-radius: 50%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            border: 2px solid white;
-        }
-
-        .spinner-blade {
-            width: 25px;
-            height: 25px;
-            background: #4A90E2;
+        .diamond {
+            width: 60px;
+            height: 60px;
+            background: #2196f3;
             border: 3px solid #333;
-            border-radius: 50%;
-            position: absolute;
+            transform: rotate(45deg);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            flex-shrink: 0;
         }
 
-        .blade1 { 
-            top: 2px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-        }
-        .blade2 { 
-            bottom: 2px; 
-            left: 9px; 
-        }
-        .blade3 { 
-            bottom: 2px; 
-            right: 9px; 
+        .diamond:hover {
+            transform: rotate(45deg) scale(1.05);
         }
 
-        .fidget-spinner.spinning {
-            animation: spin 2s linear infinite;
+        .diamond.spinning {
+            animation: diamondSpin 2s ease-in-out;
         }
 
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        @keyframes diamondSpin {
+            0% { transform: rotate(45deg); }
+            25% { transform: rotate(135deg); }
+            50% { transform: rotate(225deg); }
+            75% { transform: rotate(315deg); }
+            100% { transform: rotate(405deg); }
         }
 
         @keyframes ripple {
@@ -380,12 +328,12 @@
                     </div>
                     
                     <div class="tilt-controls">
-                        <button class="btn" onclick="tiltBall(-10)">←</button>
-                        <button class="btn" onclick="tiltBall(10)">→</button>
+                        <input type="range" min="0" max="100" value="50" class="custom-slider" 
+                               id="ballSlider" oninput="moveBallFromSlider(this.value)" style="width: 200px;">
                     </div>
                     
                     <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
-                        doink me
+                        wibble me
                     </div>
                 </div>
             </div>
@@ -399,7 +347,7 @@
                     </div>
                     
                     <div class="wave-container">
-                        <canvas class="wave-canvas" id="waveCanvas" width="200" height="80"></canvas>
+                        <canvas class="wave-canvas" id="waveCanvas" width="160" height="60"></canvas>
                     </div>
                     
                     <div class="slider-container">
@@ -417,7 +365,7 @@
             <div class="module">
                 <div class="module-content">
                     <div class="hand-container" onclick="throwHand(event)">
-                        <div class="stretchy-hand" id="stretchyHand">✋</div>
+                        <div class="stretchy-hand" id="stretchyHand">▲</div>
                     </div>
                     
                     <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
@@ -430,14 +378,13 @@
             <div class="module">
                 <div class="module-content">
                     <div class="controls">
-                        <button class="btn" onclick="changeShapeColor()" style="display: flex; align-items: center; justify-content: center;">
-                            <div style="width: 12px; height: 12px; background: #666; border-radius: 50%;"></div>
-                        </button>
+                        <button class="btn" onclick="addCircle()">+</button>
+                        <button class="btn" onclick="removeCircle()">-</button>
                         <button class="btn" onclick="toggleShapeBouncing()" style="width: 40px; height: 40px; font-size: 20px; display: flex; align-items: center; justify-content: center;">○</button>
                     </div>
                     
                     <div class="shapes-area">
-                        <div class="shape circle" id="circle"></div>
+                        <div class="shape circle" id="circle" style="background: #f44336;"></div>
                     </div>
                     
                     <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
@@ -445,33 +392,18 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Fidget Spinner Module -->
+
+            <!-- Spinning Diamonds Module -->
             <div class="module">
                 <div class="module-content">
-                    <div class="spinners-container">
-                        <div class="fidget-spinner" onclick="spinSpinner(this)">
-                            <div class="spinner-center"></div>
-                            <div class="spinner-blade blade1"></div>
-                            <div class="spinner-blade blade2"></div>
-                            <div class="spinner-blade blade3"></div>
-                        </div>
-                        <div class="fidget-spinner" onclick="spinSpinner(this)">
-                            <div class="spinner-center"></div>
-                            <div class="spinner-blade blade1"></div>
-                            <div class="spinner-blade blade2"></div>
-                            <div class="spinner-blade blade3"></div>
-                        </div>
-                        <div class="fidget-spinner" onclick="spinSpinner(this)">
-                            <div class="spinner-center"></div>
-                            <div class="spinner-blade blade1"></div>
-                            <div class="spinner-blade blade2"></div>
-                            <div class="spinner-blade blade3"></div>
-                        </div>
+                    <div class="diamond-container">
+                        <div class="diamond" id="diamond1" onclick="spinDiamond(this)"></div>
+                        <div class="diamond" id="diamond2" onclick="spinDiamond(this)"></div>
+                        <div class="diamond" id="diamond3" onclick="spinDiamond(this)"></div>
                     </div>
                     
                     <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
-                        twirl me
+                        tumble me
                     </div>
                 </div>
             </div>
@@ -481,19 +413,21 @@
     <script>
         // State management
         let state = {
-            ballColors: ['#ff4444', '#44ff44', '#4444ff', '#ffff44', '#ff44ff', '#44ffff'],
+            ballColors: ['#f44336'], // Only red
             ballColorIndex: 0,
             ballPosition: 125,
             ballVelocity: 0,
             ballMomentum: null,
-            handColors: ['🖐️', '✋', '🤚', '👐'],
+            handColors: ['▲'],
             handColorIndex: 0,
             waveSettings: { frequency: 5, amplitude: 20, speed: 2, color: '#00ff41' },
-            shapeColors: ['#ffeb3b', '#e91e63', '#2196f3', '#4caf50', '#ff9800', '#9c27b0'],
+            shapeColors: ['#f44336'], // Only red
             shapeColorIndex: 0,
-            spinnerColors: [['#4A90E2', '#4A90E2'], ['#E74C3C', '#E74C3C'], ['#2ECC71', '#2ECC71'], ['#F39C12', '#F39C12']],
-            spinnerColorIndex: 0,
-            shapeAnimation: { x: 150, y: 32, size: 35, isAnimating: false }
+            circles: [{id: 'circle', x: 50, y: 25, vx: 0, vy: 0, size: 50}],
+            nextCircleId: 1,
+            shapeAnimation: { x: 150, y: 32, size: 35, isAnimating: false },
+            diamondColors: ['#2196f3', '#e91e63', '#4caf50', '#ff9800', '#9c27b0'],
+            diamondColorIndices: [0, 0, 0] // Track color state for each diamond
         };
 
         // Ball functions
@@ -507,20 +441,17 @@
         }
 
         function updateSliderFromBall() {
-            const sliderValue = (235 - state.ballPosition) / 2.2;
-            document.getElementById('ballSlider').value = Math.max(0, Math.min(100, sliderValue));
+            const slider = document.getElementById('ballSlider');
+            if (slider) {
+                const sliderValue = ((state.ballPosition - 15) / 220) * 100;
+                slider.value = Math.max(0, Math.min(100, sliderValue));
+            }
         }
 
         function moveBallFromSlider(sliderValue) {
-            state.ballPosition = 235 - (sliderValue * 2.2);
+            state.ballPosition = 15 + (sliderValue / 100) * 220;
             state.ballPosition = Math.max(15, Math.min(235, state.ballPosition));
             document.getElementById('ball').style.left = state.ballPosition + 'px';
-        }
-
-        function tiltBall(direction) {
-            state.ballPosition = Math.max(15, Math.min(235, state.ballPosition + direction));
-            document.getElementById('ball').style.left = state.ballPosition + 'px';
-            updateSliderFromBall();
         }
 
         function updateBallMomentum() {
@@ -537,13 +468,13 @@
             // Bounce off walls
             if (state.ballPosition <= 15 || state.ballPosition >= 235) {
                 state.ballVelocity *= -0.7;
-                changeBallColor();
             }
             
             // Apply friction
             state.ballVelocity *= 0.95;
             
             document.getElementById('ball').style.left = state.ballPosition + 'px';
+            updateSliderFromBall();
         }
 
         // Wave functions
@@ -580,15 +511,6 @@
         }
 
         // Hand functions
-        function changeHandColor(reverse = false) {
-            if (reverse) {
-                state.handColorIndex = (state.handColorIndex - 1 + state.handColors.length) % state.handColors.length;
-            } else {
-                state.handColorIndex = (state.handColorIndex + 1) % state.handColors.length;
-            }
-            document.getElementById('stretchyHand').textContent = state.handColors[state.handColorIndex];
-        }
-
         function throwHand(event) {
             const container = event.currentTarget;
             const hand = document.getElementById('stretchyHand');
@@ -596,144 +518,201 @@
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
             
-            hand.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) scale(1.5)`;
+            hand.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) rotate(45deg) scale(1.5)`;
             
             setTimeout(() => {
-                hand.style.transform = 'translate(-50%, -50%) scale(1)';
+                hand.style.transform = 'translate(-50%, -50%) rotate(45deg) scale(1)';
             }, 600);
         }
 
         // Shape functions
-        function changeShapeColor(reverse = false) {
-            if (reverse) {
-                state.shapeColorIndex = (state.shapeColorIndex - 1 + state.shapeColors.length) % state.shapeColors.length;
-            } else {
-                state.shapeColorIndex = (state.shapeColorIndex + 1) % state.shapeColors.length;
-            }
-            document.getElementById('circle').style.background = state.shapeColors[state.shapeColorIndex];
-            const square = document.getElementById('square');
-            if (square) {
-                square.style.background = state.shapeColors[(state.shapeColorIndex + 1) % state.shapeColors.length];
+        function addCircle() {
+            const container = document.querySelector('.shapes-area');
+            const newCircle = document.createElement('div');
+            const circleId = 'circle' + state.nextCircleId++;
+            
+            newCircle.className = 'shape circle';
+            newCircle.id = circleId;
+            newCircle.style.background = '#f44336'; // Always red
+            
+            // Random position within container bounds
+            const x = Math.random() * (container.offsetWidth - 50);
+            const y = Math.random() * (container.offsetHeight - 50);
+            newCircle.style.left = x + 'px';
+            newCircle.style.top = y + 'px';
+            
+            container.appendChild(newCircle);
+            
+            // Add to state
+            state.circles.push({
+                id: circleId,
+                x: x,
+                y: y,
+                vx: (Math.random() - 0.5) * 8,
+                vy: (Math.random() - 0.5) * 8,
+                size: 50,
+                color: '#f44336'
+            });
+            
+            // Make it draggable
+            makeCircleDraggable(newCircle);
+        }
+
+        function removeCircle() {
+            if (state.circles.length <= 1) return; // Keep at least one circle
+            
+            const lastCircle = state.circles.pop();
+            const element = document.getElementById(lastCircle.id);
+            if (element) {
+                element.remove();
             }
         }
 
         function toggleShapeBouncing() {
-            const circle = document.getElementById('circle');
-            const container = circle.parentNode;
+            const container = document.querySelector('.shapes-area');
             
             if (state.shapeAnimation.isAnimating) {
                 state.shapeAnimation.isAnimating = false;
-                circle.style.transition = 'all 0.3s ease';
+                // Reset transitions for all circles
+                state.circles.forEach(circle => {
+                    const element = document.getElementById(circle.id);
+                    if (element) {
+                        element.style.transition = 'all 0.3s ease';
+                    }
+                });
                 return;
             }
             
             state.shapeAnimation.isAnimating = true;
-            circle.style.transition = 'none';
             
-            let x = parseInt(circle.style.left) || 50;
-            let y = parseInt(circle.style.top) || 25;
-            let velocityX = (Math.random() - 0.5) * 8;
-            let velocityY = (Math.random() - 0.5) * 8;
+            // Initialize velocities for all circles and remove transitions
+            state.circles.forEach(circle => {
+                const element = document.getElementById(circle.id);
+                if (element) {
+                    element.style.transition = 'none';
+                    circle.x = parseInt(element.style.left) || circle.x;
+                    circle.y = parseInt(element.style.top) || circle.y;
+                    if (circle.vx === 0 && circle.vy === 0) {
+                        circle.vx = (Math.random() - 0.5) * 8;
+                        circle.vy = (Math.random() - 0.5) * 8;
+                    }
+                }
+            });
             
-            function bounce() {
+            function bounceAll() {
                 if (!state.shapeAnimation.isAnimating) return;
-                
-                x += velocityX;
-                y += velocityY;
                 
                 const containerWidth = container.offsetWidth;
                 const containerHeight = container.offsetHeight;
-                const circleSize = 50;
                 
-                if (x <= 0 || x >= containerWidth - circleSize) {
-                    velocityX = -velocityX;
-                    x = Math.max(0, Math.min(containerWidth - circleSize, x));
-                    changeShapeColor();
-                }
+                state.circles.forEach(circle => {
+                    const element = document.getElementById(circle.id);
+                    if (!element) return;
+                    
+                    circle.x += circle.vx;
+                    circle.y += circle.vy;
+                    
+                    // Bounce off walls
+                    if (circle.x <= 0 || circle.x >= containerWidth - circle.size) {
+                        circle.vx = -circle.vx;
+                        circle.x = Math.max(0, Math.min(containerWidth - circle.size, circle.x));
+                    }
+                    
+                    if (circle.y <= 0 || circle.y >= containerHeight - circle.size) {
+                        circle.vy = -circle.vy;
+                        circle.y = Math.max(0, Math.min(containerHeight - circle.size, circle.y));
+                    }
+                    
+                    element.style.left = circle.x + 'px';
+                    element.style.top = circle.y + 'px';
+                });
                 
-                if (y <= 0 || y >= containerHeight - circleSize) {
-                    velocityY = -velocityY;
-                    y = Math.max(0, Math.min(containerHeight - circleSize, y));
-                    changeShapeColor();
-                }
-                
-                circle.style.left = x + 'px';
-                circle.style.top = y + 'px';
-                
-                requestAnimationFrame(bounce);
+                requestAnimationFrame(bounceAll);
             }
             
-            bounce();
+            bounceAll();
         }
 
-        // Spinner functions
-        function changeSpinnerColor(reverse = false) {
-            if (reverse) {
-                state.spinnerColorIndex = (state.spinnerColorIndex - 1 + state.spinnerColors.length) % state.spinnerColors.length;
-            } else {
-                state.spinnerColorIndex = (state.spinnerColorIndex + 1) % state.spinnerColors.length;
-            }
+        // Diamond functions
+        function spinDiamond(diamondElement) {
+            diamondElement.classList.add('spinning');
             
-            const colors = state.spinnerColors[state.spinnerColorIndex];
-            document.querySelectorAll('.spinner-blade').forEach(blade => {
-                blade.style.background = colors[0];
-            });
-        }
-
-        function spinSpinner(spinner) {
-            spinner.classList.add('spinning');
-            changeSpinnerColor();
+            // Get diamond index from ID (diamond1, diamond2, diamond3)
+            const diamondIndex = parseInt(diamondElement.id.slice(-1)) - 1;
+            
+            // Change color for this specific diamond
+            state.diamondColorIndices[diamondIndex] = (state.diamondColorIndices[diamondIndex] + 1) % state.diamondColors.length;
+            
             setTimeout(() => {
-                spinner.classList.remove('spinning');
-            }, 2000);
+                diamondElement.style.background = state.diamondColors[state.diamondColorIndices[diamondIndex]];
+                diamondElement.classList.remove('spinning');
+            }, 1000);
         }
 
         // Shape dragging
-        function makeShapesDraggable() {
-            ['circle', 'square'].forEach(id => {
-                const shape = document.getElementById(id);
-                if (!shape) return;
+        function makeCircleDraggable(shape) {
+            let isDragging = false;
+            
+            shape.addEventListener('mousedown', (e) => {
+                if (state.shapeAnimation.isAnimating) return;
                 
-                let isDragging = false;
+                isDragging = true;
+                const shapeRect = shape.getBoundingClientRect();
+                const startX = e.clientX - shapeRect.left - shape.offsetWidth/2;
+                const startY = e.clientY - shapeRect.top - shape.offsetHeight/2;
                 
-                shape.addEventListener('mousedown', (e) => {
-                    if (state.shapeAnimation.isAnimating) return;
-                    
-                    isDragging = true;
-                    const shapeRect = shape.getBoundingClientRect();
-                    const startX = e.clientX - shapeRect.left - shape.offsetWidth/2;
-                    const startY = e.clientY - shapeRect.top - shape.offsetHeight/2;
-                    
-                    function moveShape(e) {
-                        if (isDragging) {
-                            const container = shape.parentNode;
-                            const rect = container.getBoundingClientRect();
-                            const x = Math.max(0, Math.min(container.offsetWidth - shape.offsetWidth, e.clientX - rect.left - startX));
-                            const y = Math.max(0, Math.min(container.offsetHeight - shape.offsetHeight, e.clientY - rect.top - startY));
-                            
-                            shape.style.left = x + 'px';
-                            shape.style.top = y + 'px';
+                function moveShape(e) {
+                    if (isDragging) {
+                        const container = shape.parentNode;
+                        const rect = container.getBoundingClientRect();
+                        const x = Math.max(0, Math.min(container.offsetWidth - shape.offsetWidth, e.clientX - rect.left - startX));
+                        const y = Math.max(0, Math.min(container.offsetHeight - shape.offsetHeight, e.clientY - rect.top - startY));
+                        
+                        shape.style.left = x + 'px';
+                        shape.style.top = y + 'px';
+                        
+                        // Update state
+                        const circleData = state.circles.find(c => c.id === shape.id);
+                        if (circleData) {
+                            circleData.x = x;
+                            circleData.y = y;
                         }
                     }
-                    
-                    function stopDragging() {
-                        isDragging = false;
-                        document.removeEventListener('mousemove', moveShape);
-                        document.removeEventListener('mouseup', stopDragging);
-                    }
-                    
-                    document.addEventListener('mousemove', moveShape);
-                    document.addEventListener('mouseup', stopDragging);
-                });
+                }
                 
-                shape.addEventListener('wheel', (e) => {
-                    e.preventDefault();
-                    const currentSize = parseInt(shape.style.width) || (id === 'circle' ? 50 : 35);
-                    const delta = e.deltaY > 0 ? -5 : 5;
-                    const newSize = Math.max(20, Math.min(80, currentSize + delta));
-                    shape.style.width = newSize + 'px';
-                    shape.style.height = newSize + 'px';
-                });
+                function stopDragging() {
+                    isDragging = false;
+                    document.removeEventListener('mousemove', moveShape);
+                    document.removeEventListener('mouseup', stopDragging);
+                }
+                
+                document.addEventListener('mousemove', moveShape);
+                document.addEventListener('mouseup', stopDragging);
+            });
+            
+            shape.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const currentSize = parseInt(shape.style.width) || 50;
+                const delta = e.deltaY > 0 ? -5 : 5;
+                const newSize = Math.max(20, Math.min(80, currentSize + delta));
+                shape.style.width = newSize + 'px';
+                shape.style.height = newSize + 'px';
+                
+                // Update state
+                const circleData = state.circles.find(c => c.id === shape.id);
+                if (circleData) {
+                    circleData.size = newSize;
+                }
+            });
+        }
+
+        function makeShapesDraggable() {
+            // Make all existing circles draggable
+            state.circles.forEach(circle => {
+                const element = document.getElementById(circle.id);
+                if (element) {
+                    makeCircleDraggable(element);
+                }
             });
         }
 
@@ -741,8 +720,28 @@
         function init() {
             drawWaves();
             makeShapesDraggable();
+            updateSliderFromBall();
             
-            document.querySelectorAll('.btn, .snake-btn').forEach(btn => {
+            // Set initial colors
+            const ball = document.getElementById('ball');
+            if (ball) {
+                ball.style.background = '#2196f3';
+            }
+            
+            const initialCircle = document.getElementById('circle');
+            if (initialCircle) {
+                initialCircle.style.background = '#2196f3';
+            }
+
+            // Set initial diamond colors
+            for (let i = 1; i <= 3; i++) {
+                const diamond = document.getElementById(`diamond${i}`);
+                if (diamond) {
+                    diamond.style.background = state.diamondColors[state.diamondColorIndices[i-1]];
+                }
+            }
+            
+            document.querySelectorAll('.btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     btn.style.transform = 'scale(0.95)';
                     setTimeout(() => {
