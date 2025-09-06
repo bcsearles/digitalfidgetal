@@ -12,7 +12,7 @@
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             background: #f0f0f0;
             min-height: 100vh;
             display: flex;
@@ -666,12 +666,12 @@
                 state.shapeColorIndex = (state.shapeColorIndex + 1) % state.shapeColors.length;
             }
             document.getElementById('circle').style.background = state.shapeColors[state.shapeColorIndex];
+            document.getElementById('square').style.background = state.shapeColors[(state.shapeColorIndex + 1) % state.shapeColors.length];
         }
 
         function updateShapeColors(value) {
             const hue = value;
             document.getElementById('circle').style.background = `hsl(${hue}, 70%, 60%)`;
-            document.getElementById('square').style.background = `hsl(${(hue + 180) % 360}, 70%, 60%)`;
             document.getElementById('colorDot').style.background = `hsl(${hue}, 70%, 60%)`;
         }
 
