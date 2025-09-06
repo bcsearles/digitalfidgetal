@@ -464,7 +464,6 @@
                 </div>
             </div>
             
-            <div class="title">DIGITAL FIDGETAL</div>
             
             <!-- Wave Generator Section -->
             <div class="fidget-section wave-section">
