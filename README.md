@@ -358,7 +358,7 @@
             right: 9px; 
         }
 
-        .spinning .fidget-spinner {
+        .fidget-spinner.spinning {
             animation: spin 2s linear infinite;
         }
 
@@ -473,8 +473,7 @@
             <div class="module">
                 <div class="module-content">
                     <div class="controls">
-                        <button class="btn" onclick="changeBallColor()">+</button>
-                        <button class="btn" onclick="changeBallColor(true)">-</button>
+                        <button class="btn" onclick="changeBallColor()" style="width: 80px; font-size: 12px;">:)</button>
                     </div>
                     
                     <div class="ball-track">
@@ -546,8 +545,6 @@
                 <div class="module-content">
                     <div class="spinner-controls">
                         <button class="btn" onclick="changeSpinnerColor()">+</button>
-                        <button class="btn" onclick="changeSpinnerColor(true)">-</button>
-                        <button class="btn" onclick="changeSpinnerColor()">+</button>
                     </div>
                     
                     <div class="spinners-container">
@@ -569,7 +566,7 @@
             ballColors: ['#ff4444', '#44ff44', '#4444ff', '#ffff44', '#ff44ff', '#44ffff'],
             ballColorIndex: 0,
             ballPosition: 125,
-            handColors: ['🖐️', '✋', '👋', '🤚', '✊', '👊', '🙌', '👐'],
+            handColors: ['🖐️', '✋', '🤚', '👐'],
             handColorIndex: 0,
             waveSettings: { frequency: 5, amplitude: 20, speed: 2, color: '#00ff41' },
             shapeColors: ['#ffeb3b', '#e91e63', '#2196f3', '#4caf50', '#ff9800', '#9c27b0'],
