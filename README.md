@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -38,13 +39,15 @@
 
         .title {
             text-align: center;
-            font-size: 32px;
+            font-size: 26px;
             font-weight: bold;
             letter-spacing: 2px;
             color: #333;
             margin-bottom: 0px;
-            padding: 8px 20px 2px 20px;
-            border-top: 2px dashed #333;
+            padding: 15px 20px 8px 20px;
+            background: white;
+            border: 2px solid #000;
+            border-radius: 10px 10px 0 0;
         }
 
         .subtitle {
@@ -53,8 +56,12 @@
             color: #666;
             margin-bottom: 20px;
             font-style: italic;
-            padding: 2px 20px 8px 20px;
-            border-bottom: 2px dashed #333;
+            padding: 2px 20px 15px 20px;
+            background: white;
+            border: 2px solid #000;
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            margin-top: -2px;
         }
 
         .module {
@@ -209,15 +216,19 @@
 
         /* Stretchy Hand */
         .hand-container {
-            width: 200px;
+            width: 100%;
             height: 100px;
-            background: #f8f8f8;
-            border: 2px solid #ddd;
+            background: transparent;
+            border: none;
             border-radius: 15px;
             position: relative;
             cursor: pointer;
             overflow: visible;
             margin: 10px 0;
+        }
+
+        .hand-container:hover {
+            background: rgba(240, 240, 240, 0.3);
         }
 
         .stretchy-hand {
@@ -369,9 +380,8 @@
                     </div>
                     
                     <div class="tilt-controls">
-                        <div class="arrow" onclick="tiltBall(-10)">←</div>
-                        <div class="triangle"></div>
-                        <div class="arrow" onclick="tiltBall(10)">→</div>
+                        <button class="btn" onclick="tiltBall(-10)">←</button>
+                        <button class="btn" onclick="tiltBall(10)">→</button>
                     </div>
                     
                     <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
@@ -407,7 +417,7 @@
             <div class="module">
                 <div class="module-content">
                     <div class="hand-container" onclick="throwHand(event)">
-                        <div class="stretchy-hand" id="stretchyHand">🖐️</div>
+                        <div class="stretchy-hand" id="stretchyHand">✋</div>
                     </div>
                     
                     <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
@@ -446,10 +456,22 @@
                             <div class="spinner-blade blade2"></div>
                             <div class="spinner-blade blade3"></div>
                         </div>
+                        <div class="fidget-spinner" onclick="spinSpinner(this)">
+                            <div class="spinner-center"></div>
+                            <div class="spinner-blade blade1"></div>
+                            <div class="spinner-blade blade2"></div>
+                            <div class="spinner-blade blade3"></div>
+                        </div>
+                        <div class="fidget-spinner" onclick="spinSpinner(this)">
+                            <div class="spinner-center"></div>
+                            <div class="spinner-blade blade1"></div>
+                            <div class="spinner-blade blade2"></div>
+                            <div class="spinner-blade blade3"></div>
+                        </div>
                     </div>
                     
                     <div style="font-size: 12px; color: #666; text-align: center; margin-top: 10px;">
-                        spin me
+                        twirl me
                     </div>
                 </div>
             </div>
@@ -484,9 +506,21 @@
             document.getElementById('ball').style.background = state.ballColors[state.ballColorIndex];
         }
 
+        function updateSliderFromBall() {
+            const sliderValue = (235 - state.ballPosition) / 2.2;
+            document.getElementById('ballSlider').value = Math.max(0, Math.min(100, sliderValue));
+        }
+
+        function moveBallFromSlider(sliderValue) {
+            state.ballPosition = 235 - (sliderValue * 2.2);
+            state.ballPosition = Math.max(15, Math.min(235, state.ballPosition));
+            document.getElementById('ball').style.left = state.ballPosition + 'px';
+        }
+
         function tiltBall(direction) {
             state.ballPosition = Math.max(15, Math.min(235, state.ballPosition + direction));
             document.getElementById('ball').style.left = state.ballPosition + 'px';
+            updateSliderFromBall();
         }
 
         function updateBallMomentum() {
@@ -566,7 +600,6 @@
             
             setTimeout(() => {
                 hand.style.transform = 'translate(-50%, -50%) scale(1)';
-                changeHandColor();
             }, 600);
         }
 
@@ -708,7 +741,6 @@
         function init() {
             drawWaves();
             makeShapesDraggable();
-            resetSnakeGame();
             
             document.querySelectorAll('.btn, .snake-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -725,7 +757,7 @@
                 const targetPosition = Math.max(15, Math.min(235, x - 15));
                 
                 const direction = targetPosition - state.ballPosition;
-                state.ballVelocity = direction * 0.15;
+                state.ballVelocity = direction * 0.4;
                 
                 if (!state.ballMomentum) {
                     state.ballMomentum = setInterval(updateBallMomentum, 16);
