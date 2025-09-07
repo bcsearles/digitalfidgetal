@@ -388,6 +388,37 @@
             .fidget-device {
                 width: 100%;
                 max-width: 450px;
+                padding: 15px;
+            }
+            
+            .ball-track {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .wave-container {
+                width: 100%;
+                max-width: 200px;
+            }
+            
+            .shapes-area {
+                width: 100%;
+                max-width: 240px;
+            }
+            
+            .tilt-controls {
+                padding-right: 0;
+                gap: 10px;
+            }
+            
+            .title {
+                font-size: 24px;
+                max-width: 280px;
+            }
+            
+            .subtitle {
+                max-width: 280px;
+                font-size: 11px;
             }
         }
     </style>
