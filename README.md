@@ -97,7 +97,7 @@
             padding: 20px;
             width: 450px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin: 0 auto;
+            margin: 42px auto 0 auto;
             max-width: calc(100vw - 40px);
         }
 
@@ -119,7 +119,7 @@
             text-align: center;
             font-size: 12px;
             color: #666;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             padding: 2px 15px 10px 15px;
             background: white;
             border: 2px solid #000;
@@ -416,7 +416,7 @@
             </div>
         </div>
         
-        <div class="module">
+        <div class="module" style="margin-top: 15px;">
             <div class="module-content">
                 <div style="display: flex; align-items: flex-start; gap: 15px;">
                     <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px;">
@@ -454,7 +454,7 @@
             </div>
         </div>
         
-        <div class="module">
+        <div class="module" style="padding-bottom: 8px;">
             <div class="module-content">
                 <div style="display: flex; align-items: center; gap: 15px;">
                     <div class="shapes-area" id="shapesArea">
