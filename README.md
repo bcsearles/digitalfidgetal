@@ -25,8 +25,8 @@
             background: white;
             border: 3px solid #333;
             border-radius: 20px;
-            padding: 15px;
-            width: 300px;
+            padding: 20px;
+            width: 450px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
@@ -131,7 +131,7 @@
         }
 
         .ball-track {
-            width: 180px;
+            width: 280px;
             height: 50px;
             background: #f8f8f8;
             border: 2px solid #ddd;
@@ -149,13 +149,13 @@
             border-radius: 50%;
             position: absolute;
             top: 12px;
-            left: 84px;
+            left: 134px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
         .wave-container {
-            width: 160px;
+            width: 240px;
             height: 60px;
             background: #000;
             border: 2px solid #000;
@@ -217,8 +217,8 @@
         }
 
         .shapes-area {
-            width: 160px;
-            height: 140px;
+            width: 300px;
+            height: 180px;
             background: #f8f8f8;
             border: 2px solid #ddd;
             border-radius: 12px;
@@ -238,15 +238,15 @@
             background: #2196f3;
             border: 3px solid #333;
             border-radius: 6px;
-            top: 50px;
-            left: 60px;
+            top: 70px;
+            left: 130px;
         }
 
         .diamond-container {
             display: flex;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
-            width: 160px;
+            width: 100%;
             height: 60px;
         }
 
@@ -287,7 +287,7 @@
         @media (max-width: 768px) {
             .fidget-device {
                 width: 100%;
-                max-width: 300px;
+                max-width: 450px;
             }
         }
     </style>
@@ -321,19 +321,30 @@
                         <input type="range" min="1" max="10" value="5" class="slider" onchange="updateWaveSpeed(this.value)" style="width: 74px;">
                     </div>
                     <div class="wave-container" onclick="ripple(event)">
-                        <canvas class="wave-canvas" id="waveCanvas" width="160" height="60"></canvas>
+                        <canvas class="wave-canvas" id="waveCanvas" width="240" height="60"></canvas>
                     </div>
                 </div>
                 <div class="label">tune me</div>
             </div>
         </div>
         
-        <div class="module">
-            <div class="module-content">
-                <div class="hand-container" onclick="throwTriangle(event)">
-                    <div class="triangle" id="triangle"></div>
+        <div style="display: flex; gap: 10px;">
+            <div class="module" style="flex: 3;">
+                <div class="module-content">
+                    <div class="hand-container" onclick="throwTriangle(event)">
+                        <div class="triangle" id="triangle"></div>
+                    </div>
+                    <div class="label">boing me</div>
                 </div>
-                <div class="label">boing me</div>
+            </div>
+            
+            <div class="module" style="flex: 0.7;">
+                <div class="module-content">
+                    <div class="diamond-container">
+                        <div class="diamond" onclick="spinDiamond(this, 0)"></div>
+                    </div>
+                    <div class="label">tumble me</div>
+                </div>
             </div>
         </div>
         
@@ -349,48 +360,37 @@
                         <button class="btn" onclick="toggleBouncing()">○</button>
                     </div>
                 </div>
-                <div class="label">boing me</div>
-            </div>
-        </div>
-
-        <div class="module">
-            <div class="module-content">
-                <div class="diamond-container">
-                    <div class="diamond" onclick="spinDiamond(this, 0)"></div>
-                    <div class="diamond" onclick="spinDiamond(this, 1)"></div>
-                    <div class="diamond" onclick="spinDiamond(this, 2)"></div>
-                </div>
-                <div class="label">tumble me</div>
+                <div class="label">wubba me</div>
             </div>
         </div>
     </div>
 
     <script>
-        let ballPos = 84;
+        let ballPos = 134;
         let ballVel = 0;
         let ballInterval = null;
         let waveFreq = 5;
         let waveAmp = 15;
         let waveSpeed = 2;
         let waveColor = '#00ff41';
-        let squares = [{x: 60, y: 50, vx: 3, vy: 2}];
+        let squares = [{x: 130, y: 70, vx: 3, vy: 2}];
         let nextSquareId = 1;
         let bouncing = false;
         let colors = ['#2196f3', '#e91e63', '#4caf50', '#ff9800', '#9c27b0'];
-        let diamondColors = [0, 0, 0];
+        let diamondColors = [0];
 
         function moveBall(value) {
-            ballPos = 12 + (value / 100) * 144;
+            ballPos = 12 + (value / 100) * 244;
             document.getElementById('ball').style.left = ballPos + 'px';
         }
 
         function updateBallSlider() {
-            document.getElementById('ballSlider').value = ((ballPos - 12) / 144) * 100;
+            document.getElementById('ballSlider').value = ((ballPos - 12) / 244) * 100;
         }
 
         function clickBallTrack(e) {
             const rect = e.currentTarget.getBoundingClientRect();
-            const targetPos = Math.max(12, Math.min(156, e.clientX - rect.left - 12));
+            const targetPos = Math.max(12, Math.min(256, e.clientX - rect.left - 12));
             ballVel = (targetPos - ballPos) * 0.4;
             
             if (!ballInterval) {
@@ -403,9 +403,9 @@
                     }
                     
                     ballPos += ballVel;
-                    ballPos = Math.max(12, Math.min(156, ballPos));
+                    ballPos = Math.max(12, Math.min(256, ballPos));
                     
-                    if (ballPos <= 12 || ballPos >= 156) {
+                    if (ballPos <= 12 || ballPos >= 256) {
                         ballVel *= -0.7;
                     }
                     
@@ -485,8 +485,8 @@
             square.className = 'shape square';
             square.id = 'square' + nextSquareId;
             
-            const x = Math.random() * 120;
-            const y = Math.random() * 100;
+            const x = Math.random() * 260;
+            const y = Math.random() * 140;
             square.style.left = x + 'px';
             square.style.top = y + 'px';
             
