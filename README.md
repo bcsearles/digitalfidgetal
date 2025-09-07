@@ -19,6 +19,49 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.2;
+            background: 
+                radial-gradient(circle, transparent 1px, #666 1px),
+                radial-gradient(circle, transparent 1px, #999 1px),
+                radial-gradient(circle, transparent 1px, #333 1px);
+            background-size: 4px 4px, 7px 7px, 11px 11px;
+            background-position: 0 0, 3px 3px, 6px 6px;
+            animation: staticNoise 0.5s infinite linear;
+            z-index: -1;
+        }
+
+        @keyframes staticNoise {
+            0% { 
+                transform: translate(0, 0);
+                filter: hue-rotate(0deg);
+            }
+            25% { 
+                transform: translate(-1px, 1px);
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                transform: translate(1px, -1px);
+                filter: hue-rotate(0deg);
+            }
+            75% { 
+                transform: translate(-1px, -1px);
+                filter: hue-rotate(0deg);
+            }
+            100% { 
+                transform: translate(1px, 1px);
+                filter: hue-rotate(0deg);
+            }
         }
 
         .fidget-device {
@@ -32,7 +75,7 @@
 
         .title {
             text-align: center;
-            font-size: 20px;
+            font-size: 30px;
             font-weight: bold;
             letter-spacing: 1px;
             color: #333;
@@ -40,11 +83,13 @@
             background: white;
             border: 2px solid #000;
             border-radius: 8px 8px 0 0;
+            max-width: 340px;
+            margin: 0 auto;
         }
 
         .subtitle {
             text-align: center;
-            font-size: 10px;
+            font-size: 14px;
             color: #666;
             margin-bottom: 15px;
             font-style: italic;
@@ -54,6 +99,9 @@
             border-top: none;
             border-radius: 0 0 8px 8px;
             margin-top: -2px;
+            max-width: 340px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .module {
@@ -106,18 +154,33 @@
             align-items: center;
             gap: 15px;
             width: 100%;
+            justify-content: center;
+            padding-right: 15px;
         }
 
         .vertical-slider {
             width: 5px;
             height: 60px;
-            background: #ddd;
+            background: #2196f3 !important;
             border-radius: 3px;
             appearance: none;
             cursor: pointer;
             writing-mode: bt-lr;
             -webkit-appearance: slider-vertical;
             margin-left: 20px;
+            outline: none;
+        }
+
+        .vertical-slider::-webkit-slider-track {
+            background: #2196f3 !important;
+            border-radius: 3px;
+            width: 5px;
+        }
+
+        .vertical-slider::-moz-range-track {
+            background: #2196f3 !important;
+            border-radius: 3px;
+            width: 5px;
         }
 
         .vertical-slider::-webkit-slider-thumb {
@@ -125,7 +188,7 @@
             width: 16px;
             height: 16px;
             background: white;
-            border: 2px solid #333;
+            border: 2px solid #000;
             border-radius: 50%;
             cursor: pointer;
         }
@@ -144,7 +207,7 @@
         .ball {
             width: 24px;
             height: 24px;
-            background: #2196f3;
+            background: #666;
             border: 2px solid #000;
             border-radius: 50%;
             position: absolute;
@@ -173,19 +236,32 @@
         .slider {
             width: 100px;
             height: 5px;
-            background: #ddd;
+            background: #888 !important;
             border-radius: 3px;
             appearance: none;
             cursor: pointer;
+            -webkit-appearance: none;
+            outline: none;
         }
 
         .slider::-webkit-slider-thumb {
             appearance: none;
+            -webkit-appearance: none;
             width: 16px;
             height: 16px;
-            background: white;
-            border: 2px solid #333;
+            background: white !important;
+            border: 2px solid #000 !important;
             border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            background: white !important;
+            border: 2px solid #000 !important;
+            border-radius: 50%;
+            cursor: pointer;
         }
 
         .hand-container {
@@ -206,14 +282,14 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
+            transform: translate(-50%, -50%);
             width: 20px;
             height: 20px;
-            background: #8e44ad;
+            background: #e74c3c;
             border: 2px solid #000;
             transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
             cursor: grab;
-            border-radius: 3px 3px 3px 12px;
+            border-radius: 50%;
         }
 
         .shapes-area {
@@ -235,7 +311,7 @@
         .square {
             width: 40px;
             height: 40px;
-            background: #2196f3;
+            background: #27ae60;
             border: 3px solid #333;
             border-radius: 6px;
             top: 70px;
@@ -266,7 +342,7 @@
         }
 
         .diamond.spinning {
-            animation: spin 2s ease-in-out;
+            animation: spin 0.6s ease-in-out;
         }
 
         @keyframes spin {
@@ -300,11 +376,11 @@
         <div class="module">
             <div class="module-content">
                 <div class="tilt-controls">
-                    <input type="range" min="0" max="100" value="50" class="vertical-slider" 
-                           id="ballSlider" oninput="moveBall(this.value)" orient="vertical">
                     <div class="ball-track" onclick="clickBallTrack(event)">
                         <div class="ball" id="ball"></div>
                     </div>
+                    <input type="range" min="0" max="100" value="57" class="vertical-slider" 
+                           id="ballSlider" oninput="moveBall(this.value)" orient="vertical">
                 </div>
                 <div class="label">wibble me</div>
             </div>
@@ -366,7 +442,7 @@
     </div>
 
     <script>
-        let ballPos = 134;
+        let ballPos = 190;
         let ballVel = 0;
         let ballInterval = null;
         let waveFreq = 5;
@@ -557,11 +633,11 @@
         function spinDiamond(element, index) {
             element.classList.add('spinning');
             diamondColors[index] = (diamondColors[index] + 1) % colors.length;
+            element.style.background = colors[diamondColors[index]];
             
             setTimeout(() => {
-                element.style.background = colors[diamondColors[index]];
                 element.classList.remove('spinning');
-            }, 1000);
+            }, 600);
         }
 
         function makeDraggable(element, index) {
