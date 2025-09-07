@@ -394,7 +394,7 @@
 </head>
 <body>
     <div class="loading-screen" id="loadingScreen">
-        <div class="loading-text">WELCOME TO<br>DIGITAL FIDGETAL</div>
+        <div class="loading-text">WELCOME TO<br>[ DIGITAL FIDGETAL ]</div>
     </div>
     
     <div class="fidget-device">
