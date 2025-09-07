@@ -1,4 +1,3 @@
-title: ""
 show_header: false
 <html lang="en">
 <head>
