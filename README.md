@@ -72,7 +72,7 @@
             height: 100%;
             background: white;
             color: #333;
-            display: none;
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
@@ -96,30 +96,6 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin: 0 auto;
             max-width: calc(100vw - 40px);
-            position: relative;
-        }
-
-        .welcome-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            background: white;
-            border: 2px solid #333;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 14px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            z-index: 10;
-        }
-
-        .welcome-btn:hover {
-            background: #f0f0f0;
-            transform: scale(1.1);
         }
 
         .title {
@@ -419,9 +395,8 @@
     </div>
     
     <div class="fidget-device">
-        <button class="welcome-btn" onclick="showWelcomeScreen()">◉</button>
         <div class="title">DIGITAL FIDGETAL</div>
-        <div class="subtitle" onclick="changeTitleColor()">the remedy for computertime restlessness</div>
+        <div class="subtitle">the remedy for computertime restlessness</div>
         
         <div class="module">
             <div class="module-content">
@@ -507,7 +482,7 @@
         let colors = ['#2196f3', '#e91e63', '#4caf50', '#ff9800', '#9c27b0'];
         let diamondColors = [0];
 
-        function showWelcomeScreen() {
+        function showLoadingDemo() {
             const loadingScreen = document.getElementById('loadingScreen');
             loadingScreen.style.display = 'flex';
             setTimeout(() => {
