@@ -395,7 +395,7 @@
     </div>
     
     <div class="fidget-device">
-        <div class="title">DIGITAL FIDGETAL</div>
+        <div class="title" id="mainTitle" onclick="changeTitleColor()" style="cursor: pointer;">DIGITAL FIDGETAL</div>
         <div class="subtitle">the remedy for computertime restlessness</div>
         
         <div class="module">
@@ -481,6 +481,17 @@
         let bouncing = false;
         let colors = ['#2196f3', '#e91e63', '#4caf50', '#ff9800', '#9c27b0'];
         let diamondColors = [0];
+        let titleColors = ['#333', '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#e91e63'];
+        let currentTitleColor = 0;
+
+        function changeTitleColor() {
+            currentTitleColor = (currentTitleColor + 1) % titleColors.length;
+            const title = document.getElementById('mainTitle');
+            if (title) {
+                title.style.color = titleColors[currentTitleColor];
+                console.log('Title color changed to:', titleColors[currentTitleColor]);
+            }
+        }
 
         function showLoadingDemo() {
             const loadingScreen = document.getElementById('loadingScreen');
