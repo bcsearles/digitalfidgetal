@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,7 +11,7 @@
         }
 
         body {
-            font-family: sans-serif;
+            font-family: 'Space Grotesk', monospace, sans-serif;
             background: #f0f0f0;
             min-height: 100vh;
             display: flex;
@@ -89,10 +88,9 @@
 
         .subtitle {
             text-align: center;
-            font-size: 14px;
+            font-size: 12px;
             color: #666;
             margin-bottom: 15px;
-            font-style: italic;
             padding: 2px 15px 10px 15px;
             background: white;
             border: 2px solid #000;
@@ -161,7 +159,7 @@
         .vertical-slider {
             width: 5px;
             height: 60px;
-            background: #2196f3 !important;
+            background: #888 !important;
             border-radius: 3px;
             appearance: none;
             cursor: pointer;
@@ -172,15 +170,25 @@
         }
 
         .vertical-slider::-webkit-slider-track {
-            background: #2196f3 !important;
+            background: #888 !important;
             border-radius: 3px;
             width: 5px;
         }
 
         .vertical-slider::-moz-range-track {
-            background: #2196f3 !important;
+            background: #888 !important;
             border-radius: 3px;
             width: 5px;
+        }
+
+        .vertical-slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            background: white !important;
+            border: 2px solid #000 !important;
+            border-radius: 50%;
+            cursor: pointer;
         }
 
         .vertical-slider::-webkit-slider-thumb {
