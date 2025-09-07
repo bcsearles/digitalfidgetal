@@ -366,7 +366,7 @@
 <body>
     <div class="fidget-device">
         <div class="title">DIGITAL FIDGETAL</div>
-        <div class="subtitle">the remedy for computertime restlessness</div>
+        <div class="subtitle" onclick="changeTitleColor()">the remedy for computertime restlessness</div>
         
         <div class="module">
             <div class="module-content">
