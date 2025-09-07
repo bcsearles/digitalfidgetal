@@ -1,9 +1,9 @@
-title: ""
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <title>Digital Fidgetal</title>
     <style>
         * {
             margin: 0;
@@ -18,6 +18,9 @@ title: ""
             padding: 40px 20px;
             position: relative;
             overflow-x: hidden;
+            /* Ensure no extra space at top */
+            padding-top: 40px;
+            margin-top: 0;
         }
 
         body::before {
@@ -769,15 +772,18 @@ title: ""
         }
 
         // Initialize loading screen and page
-        window.addEventListener('load', function() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // Show loading screen on page load
             setTimeout(() => {
                 document.getElementById('loadingScreen').style.display = 'none';
             }, 3000);
         });
 
         // Initialize
-        drawWaves();
-        makeDraggable(document.getElementById('square0'), 0);
+        document.addEventListener('DOMContentLoaded', function() {
+            drawWaves();
+            makeDraggable(document.getElementById('square0'), 0);
+        });
 
         const style = document.createElement('style');
         style.textContent = `
