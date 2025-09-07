@@ -17,14 +17,23 @@
             padding: 40px 20px;
         }
 
+        .shadow {
+            box-shadow: 6px 6px 0px #000;
+        }
+
+        .light-shadow {
+            box-shadow: 4px 4px 0px #666;
+        }
+
         .fidget-device {
             background: white;
             border: 3px solid #333;
             border-radius: 20px;
-            padding: 20px;
+            padding: 20px 20px 10px 20px;
             width: 450px;
             margin: 0 auto;
             max-width: calc(100vw - 40px);
+            box-shadow: 8px 8px 0px #000;
         }
 
         .title {
@@ -32,14 +41,15 @@
             font-size: 30px;
             font-weight: bold;
             color: #333;
-            padding: 10px;
+            padding: 20px 10px;
             border: 2px solid #000;
             border-radius: 8px;
             margin-bottom: 20px;
             cursor: pointer;
-            width: 95%;
+            width: 85%;
             margin-left: auto;
             margin-right: auto;
+            box-shadow: 5px 5px 0px #000;
         }
 
         .module {
@@ -48,6 +58,7 @@
             margin: 10px 0;
             padding: 15px;
             text-align: center;
+            box-shadow: 5px 5px 0px #000;
         }
 
         .btn {
@@ -59,6 +70,7 @@
             font-size: 16px;
             cursor: pointer;
             margin: 5px;
+            box-shadow: 3px 3px 0px #000;
         }
 
         .btn:hover {
@@ -74,6 +86,7 @@
             position: relative;
             margin: 0 auto;
             cursor: pointer;
+            box-shadow: 4px 4px 0px #000;
         }
 
         .ball {
@@ -86,6 +99,7 @@
             top: 10px;
             left: 188px;
             cursor: grab;
+            box-shadow: 3px 3px 0px #000;
         }
 
         .wave-container {
@@ -96,6 +110,7 @@
             border-radius: 8px;
             margin: 0 auto;
             cursor: pointer;
+            box-shadow: 4px 4px 0px #666;
         }
 
         .wave-canvas {
@@ -122,6 +137,7 @@
             border: 2px solid #000;
             border-radius: 50%;
             transition: all 0.4s;
+            box-shadow: 3px 3px 0px #000;
         }
 
         .star {
@@ -139,6 +155,7 @@
             color: #fff;
             user-select: none;
             transition: transform 0.3s ease;
+            box-shadow: 4px 4px 0px #000;
         }
 
         .square {
@@ -148,9 +165,10 @@
             border: 3px solid #333;
             border-radius: 6px;
             position: absolute;
-            top: 40px;
+            top: 20px;
             left: 200px;
             cursor: move;
+            box-shadow: 3px 3px 0px #000;
         }
 
         .label {
@@ -167,7 +185,10 @@
 </head>
 <body>
     <div class="fidget-device">
-        <div class="title" onclick="changeColor(this)" style="margin-top: -5px;">DIGITAL FIDGETAL</div>
+        <div class="title" onclick="changeColor(this)" style="margin-top: -5px;">
+            DIGITAL FIDGETAL
+            <div style="font-size: 12px; color: #666; font-weight: normal; margin-top: 5px;">the remedy for computertime restlessness</div>
+        </div>
         
         <div class="module" style="margin-top: -5px; margin-bottom: 20px;">
             <div class="ball-track" onclick="clickTrack(event)">
@@ -226,16 +247,19 @@
         let waveFreq = 5;
         let waveSpeed = 2;
         let waveColor = '#00ff00';
-        let squares = [{x: 200, y: 40, vx: 3, vy: 2}];
+        let squares = [{x: 200, y: 20, vx: 3, vy: 2}];
         let nextId = 1;
         let bouncing = false;
         let starRotation = 0;
-        let starSpinning = false;
         let colors = ['#333', '#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
         let colorIndex = 0;
 
         // Ball physics
         let dragging = false;
+
+        function ensureShadow(element, shadow = '3px 3px 0px #000') {
+            element.style.boxShadow = shadow;
+        }
 
         document.getElementById('ball').addEventListener('mousedown', (e) => {
             e.stopPropagation();
@@ -253,9 +277,7 @@
                 const direction = clickX > ballCenter ? 1 : -1;
                 const strength = Math.abs(clickX - ballCenter) / ballCenter;
                 
-                // More balanced throwing - higher base velocity for both directions
                 ballVel = direction * (15 + strength * 25);
-                
                 startBallPhysics();
             }
         });
@@ -265,7 +287,9 @@
                 const track = document.querySelector('.ball-track');
                 const rect = track.getBoundingClientRect();
                 ballPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
-                document.getElementById('ball').style.left = ballPos + 'px';
+                const ball = document.getElementById('ball');
+                ball.style.left = ballPos + 'px';
+                ensureShadow(ball);
                 ballVel = 0;
             }
         });
@@ -291,13 +315,16 @@
                 }
                 
                 ballVel *= 0.97;
-                document.getElementById('ball').style.left = ballPos + 'px';
+                const ball = document.getElementById('ball');
+                ball.style.left = ballPos + 'px';
+                ensureShadow(ball);
             }, 16);
         }
 
         function changeColor(el) {
             colorIndex = (colorIndex + 1) % colors.length;
             el.style.color = colors[colorIndex];
+            ensureShadow(el, '5px 5px 0px #000');
         }
 
         function clickTrack(e) {
@@ -305,33 +332,29 @@
             const rect = e.currentTarget.getBoundingClientRect();
             const clickPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
             
-            // Calculate distance and direction from current ball position
             const distance = clickPos - ballPos;
             const direction = distance > 0 ? 1 : -1;
             const clickDistance = Math.abs(distance);
             
-            // If clicking ahead of the ball, give it momentum toward that spot
             if (clickDistance > 20) {
-                // Convert distance to velocity (farther clicks = more velocity, but slower overall)
                 ballVel = direction * Math.min(18, 6 + (clickDistance * 0.08));
                 startBallPhysics();
             } else {
-                // If clicking very close, just move there smoothly
                 const ball = document.getElementById('ball');
                 ball.style.transition = 'left 0.3s ease-out';
                 ball.style.left = clickPos + 'px';
                 ballPos = clickPos;
+                ensureShadow(ball);
                 
-                // Clear any existing physics
                 if (ballInterval) {
                     clearInterval(ballInterval);
                     ballInterval = null;
                 }
                 ballVel = 0;
                 
-                // Reset transition after animation
                 setTimeout(() => {
                     ball.style.transition = '';
+                    ensureShadow(ball);
                 }, 300);
             }
         }
@@ -396,30 +419,30 @@
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            // Move to click position with scale
             triangle.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) scale(1.5)`;
             triangle.style.transition = 'all 0.3s ease-out';
+            ensureShadow(triangle);
             
-            // Start return journey with recoil
             setTimeout(() => {
                 triangle.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
                 triangle.style.transform = 'translate(-50%, -50%) scale(1)';
+                ensureShadow(triangle);
             }, 300);
             
-            // Reset transition for next click
             setTimeout(() => {
                 triangle.style.transition = 'all 0.4s';
+                ensureShadow(triangle);
             }, 700);
         }
 
         function spinStar(el) {
-            // Allow multiple spins - add more rotation each time
             const spins = 3 + Math.random() * 2;
             starRotation += spins * 360;
             
             el.style.transition = 'transform 2s ease-out';
             el.style.transform = `rotate(${starRotation}deg)`;
             el.style.background = colors[Math.floor(Math.random() * colors.length)];
+            ensureShadow(el, '4px 4px 0px #000');
         }
 
         function addSquare() {
@@ -435,9 +458,9 @@
             square.style.left = x + 'px';
             square.style.top = y + 'px';
             
-            // Assign a different color to each new square
             const colorIndex = nextId % colors.length;
             square.style.background = colors[colorIndex];
+            ensureShadow(square);
             
             container.appendChild(square);
             squares.push({x, y, vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8});
@@ -481,6 +504,7 @@
                 
                 el.style.left = sq.x + 'px';
                 el.style.top = sq.y + 'px';
+                ensureShadow(el, '2px 2px 0px #145a32');
             });
             
             requestAnimationFrame(animate);
@@ -504,6 +528,7 @@
                     
                     el.style.left = x + 'px';
                     el.style.top = y + 'px';
+                    ensureShadow(el);
                     squares[index].x = x;
                     squares[index].y = y;
                 };
@@ -518,29 +543,44 @@
                 document.addEventListener('mouseup', upHandler);
             });
             
-            // Add click handler for bounce to bottom
             el.addEventListener('click', (e) => {
                 if (bouncing || isDragging) return;
                 e.stopPropagation();
                 
                 const container = document.getElementById('squareModule');
-                // Account for container padding (15px) + label space (15px) + square height (40px)
-                const targetY = container.offsetHeight - 15 - 15 - 40; // Real bottom position
+                const targetY = container.offsetHeight - 55;
                 
-                // Animate to bottom with bounce
                 el.style.transition = 'top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
                 el.style.top = targetY + 'px';
+                ensureShadow(el);
                 squares[index].y = targetY;
                 
-                // Reset transition
                 setTimeout(() => {
                     el.style.transition = '';
+                    ensureShadow(el);
                 }, 600);
             });
         }
 
+        // Initialize
         drawWaves();
         makeDraggable(document.getElementById('square0'), 0);
+        
+        // Force shadows on all elements
+        setTimeout(() => {
+            document.querySelectorAll('.ball, .triangle, .star, .square, .btn, .module, .ball-track, .wave-container, .title, .fidget-device').forEach(el => {
+                if (el.classList.contains('ball')) ensureShadow(el);
+                else if (el.classList.contains('triangle')) ensureShadow(el);
+                else if (el.classList.contains('star')) ensureShadow(el, '4px 4px 0px #000');
+                else if (el.classList.contains('square')) ensureShadow(el);
+                else if (el.classList.contains('btn')) ensureShadow(el);
+                else if (el.classList.contains('module')) ensureShadow(el, '5px 5px 0px #000');
+                else if (el.classList.contains('ball-track')) ensureShadow(el, '4px 4px 0px #000');
+                else if (el.classList.contains('wave-container')) ensureShadow(el, '4px 4px 0px #666');
+                else if (el.classList.contains('title')) ensureShadow(el, '5px 5px 0px #000');
+                else if (el.classList.contains('fidget-device')) ensureShadow(el, '8px 8px 0px #000');
+            });
+        }, 100);
     </script>
 </body>
 </html>
