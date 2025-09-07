@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -688,8 +688,8 @@
                     if (!isDragging) return;
                     const container = element.parentNode;
                     const rect = container.getBoundingClientRect();
-                    const x = Math.max(0, Math.min(container.offsetWidth - 40, e.clientX - rect.left - 20));
-                    const y = Math.max(0, Math.min(container.offsetHeight - 40, e.clientY - rect.top - 20));
+                    const x = Math.max(0, Math.min(container.offsetWidth - 28, e.clientX - rect.left - 14));
+                    const y = Math.max(0, Math.min(container.offsetHeight - 28, e.clientY - rect.top - 14));
                     
                     element.style.left = x + 'px';
                     element.style.top = y + 'px';
