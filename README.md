@@ -526,7 +526,7 @@
         }
 
         function updateBallSlider() {
-            const percentage = ((ballPos - 12) / 314) * 100;
+            const percentage = ((ballPos - 12) / 280) * 100;
             updateSliderPosition(percentage);
         }
 
