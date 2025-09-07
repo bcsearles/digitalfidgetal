@@ -96,7 +96,7 @@
             border: 2px solid #000;
             border-top: none;
             border-radius: 0 0 8px 8px;
-            margin-top: -2px;
+            margin-top: -6px;
             max-width: 340px;
             margin-left: auto;
             margin-right: auto;
@@ -366,7 +366,7 @@
 <body>
     <div class="fidget-device">
         <div class="title">DIGITAL FIDGETAL</div>
-        <div class="subtitle">the remedy for conference call restlessness</div>
+        <div class="subtitle">the remedy for computertime restlessness</div>
         
         <div class="module">
             <div class="module-content">
@@ -379,7 +379,7 @@
                         <div class="slider-thumb" id="sliderThumb"></div>
                     </div>
                 </div>
-                <div class="label">wibble me</div>
+                <div class="label">dibble me</div>
             </div>
         </div>
         
@@ -416,7 +416,7 @@
                     <div class="diamond-container">
                         <div class="diamond" onclick="spinDiamond(this, 0)"></div>
                     </div>
-                    <div class="label">tumble me</div>
+                    <div class="label" style="margin-top: 12px;">tumble me</div>
                 </div>
             </div>
         </div>
