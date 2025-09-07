@@ -84,12 +84,10 @@
         }
 
         .loading-text {
-            font-size: 28px;
-            font-weight: 400;
+            font-size: 32px;
+            font-weight: bold;
             letter-spacing: 2px;
             text-align: center;
-            font-family: 'Press Start 2P', monospace;
-            line-height: 1.4;
         }
 
         .fidget-device {
