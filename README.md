@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Fidgetal</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,79 +12,9 @@
         }
 
         body {
-            font-family: 'Space Grotesk', monospace, sans-serif;
+            font-family: monospace;
             background: #f0f0f0;
-            margin: 0;
             padding: 40px 20px;
-            position: relative;
-            overflow-x: hidden;
-            /* Ensure no extra space at top */
-            padding-top: 40px;
-            margin-top: 0;
-        }
-
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.2;
-            background: 
-                radial-gradient(circle, transparent 1px, #666 1px),
-                radial-gradient(circle, transparent 1px, #999 1px),
-                radial-gradient(circle, transparent 1px, #333 1px);
-            background-size: 4px 4px, 7px 7px, 11px 11px;
-            background-position: 0 0, 3px 3px, 6px 6px;
-            animation: staticNoise 0.5s infinite linear;
-            z-index: -1;
-        }
-
-        @keyframes staticNoise {
-            0% { 
-                transform: translate(0, 0);
-                filter: hue-rotate(0deg);
-            }
-            25% { 
-                transform: translate(-1px, 1px);
-                filter: hue-rotate(0deg);
-            }
-            50% { 
-                transform: translate(1px, -1px);
-                filter: hue-rotate(0deg);
-            }
-            75% { 
-                transform: translate(-1px, -1px);
-                filter: hue-rotate(0deg);
-            }
-            100% { 
-                transform: translate(1px, 1px);
-                filter: hue-rotate(0deg);
-            }
-        }
-
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: white;
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            font-family: 'Space Grotesk', monospace, sans-serif;
-        }
-
-        .loading-text {
-            font-size: 32px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-align: center;
         }
 
         .fidget-device {
@@ -96,8 +23,7 @@
             border-radius: 20px;
             padding: 20px;
             width: 450px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin: 42px auto 0 auto;
+            margin: 0 auto;
             max-width: calc(100vw - 40px);
         }
 
@@ -105,51 +31,23 @@
             text-align: center;
             font-size: 30px;
             font-weight: bold;
-            letter-spacing: 1px;
             color: #333;
-            padding: 10px 15px 6px 15px;
-            background: white;
+            padding: 10px;
             border: 2px solid #000;
-            border-radius: 8px 8px 0 0;
-            max-width: 340px;
-            margin: 0 auto;
-        }
-
-        .subtitle {
-            text-align: center;
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 10px;
-            padding: 2px 15px 10px 15px;
-            background: white;
-            border: 2px solid #000;
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            margin-top: -6px;
-            max-width: 340px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            width: 95%;
             margin-left: auto;
             margin-right: auto;
         }
 
         .module {
-            background: white;
             border: 2px solid #333;
             border-radius: 12px;
             margin: 10px 0;
             padding: 15px;
-        }
-
-        .module-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
+            text-align: center;
         }
 
         .btn {
@@ -159,30 +57,12 @@
             width: 32px;
             height: 32px;
             font-size: 16px;
-            font-weight: bold;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
+            margin: 5px;
         }
 
         .btn:hover {
             background: #f0f0f0;
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .tilt-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            justify-content: center;
-            padding-right: 15px;
         }
 
         .ball-track {
@@ -192,62 +72,29 @@
             border: 2px solid #ddd;
             border-radius: 25px;
             position: relative;
-            overflow: hidden;
+            margin: 0 auto;
             cursor: pointer;
         }
 
         .ball {
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             background: #f1c40f;
             border: 2px solid #000;
             border-radius: 50%;
             position: absolute;
-            top: 12px;
-            left: 190px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-        }
-
-        .custom-vertical-slider {
-            width: 20px;
-            height: 60px;
-            position: relative;
-            margin-left: 20px;
-            cursor: pointer;
-        }
-
-        .slider-track {
-            width: 5px;
-            height: 60px;
-            background: #888;
-            border-radius: 3px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        .slider-thumb {
-            width: 16px;
-            height: 16px;
-            background: white;
-            border: 2px solid #000;
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            top: 34%;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-            transition: top 0.1s ease;
+            top: 10px;
+            left: 188px;
+            cursor: grab;
         }
 
         .wave-container {
             width: 240px;
-            height: 60px;
+            height: 100px;
             background: #000;
             border: 2px solid #000;
             border-radius: 8px;
-            position: relative;
+            margin: 0 auto;
             cursor: pointer;
         }
 
@@ -257,49 +104,11 @@
             border-radius: 8px;
         }
 
-        .slider {
-            width: 100px;
-            height: 5px;
-            background: #888 !important;
-            border-radius: 3px;
-            appearance: none;
-            cursor: pointer;
-            -webkit-appearance: none;
-            outline: none;
-        }
-
-        .slider::-webkit-slider-thumb {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 16px;
-            height: 16px;
-            background: white !important;
-            border: 2px solid #000 !important;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .slider::-moz-range-thumb {
-            width: 16px;
-            height: 16px;
-            background: white !important;
-            border: 2px solid #000 !important;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
         .hand-container {
             width: 100%;
             height: 70px;
-            background: transparent;
-            border-radius: 12px;
             position: relative;
             cursor: pointer;
-            overflow: visible;
-        }
-
-        .hand-container:hover {
-            background: rgba(240, 240, 240, 0.3);
         }
 
         .triangle {
@@ -311,25 +120,25 @@
             height: 20px;
             background: #e74c3c;
             border: 2px solid #000;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            cursor: grab;
             border-radius: 50%;
+            transition: all 0.4s;
         }
 
-        .shapes-area {
-            width: 300px;
-            height: 120px;
-            background: #f8f8f8;
-            border: 2px solid #ddd;
-            border-radius: 12px;
-            position: relative;
-        }
-
-        .shape {
-            position: absolute;
-            cursor: move;
-            transition: all 0.3s ease;
+        .star {
+            width: 50px;
+            height: 50px;
+            background: #f39c12;
+            border: 3px solid #333;
+            border-radius: 6px;
+            margin: 0 auto;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
             user-select: none;
+            transition: transform 0.3s ease;
         }
 
         .square {
@@ -338,261 +147,207 @@
             background: #27ae60;
             border: 3px solid #333;
             border-radius: 6px;
+            position: absolute;
             top: 40px;
-            left: 130px;
-        }
-
-        .diamond-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 60px;
-        }
-
-        .diamond {
-            width: 40px;
-            height: 40px;
-            background: #2196f3;
-            border: 3px solid #333;
-            transform: rotate(45deg);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 6px;
-        }
-
-        .diamond:hover {
-            transform: rotate(45deg) scale(1.05);
-        }
-
-        .diamond.spinning {
-            animation: spin 0.6s ease-in-out;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(45deg); }
-            25% { transform: rotate(135deg); }
-            50% { transform: rotate(225deg); }
-            75% { transform: rotate(315deg); }
-            100% { transform: rotate(405deg); }
+            left: 200px;
+            cursor: move;
         }
 
         .label {
             font-size: 10px;
             color: #666;
-            text-align: center;
-            margin-top: 8px;
+            margin-top: 20px;
         }
 
-        @media (max-width: 768px) {
-            .fidget-device {
-                width: 100%;
-                max-width: 450px;
-            }
+        @keyframes ripple {
+            0% { width: 4px; height: 4px; opacity: 1; }
+            100% { width: 40px; height: 40px; opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="loading-screen" id="loadingScreen">
-        <div class="loading-text">WELCOME TO<br>[ DIGITAL FIDGETAL ]</div>
-    </div>
-    
     <div class="fidget-device">
-        <div class="title" id="mainTitle" onclick="changeTitleColor()" style="cursor: pointer;">DIGITAL FIDGETAL</div>
-        <div class="subtitle">the remedy for computertime restlessness</div>
+        <div class="title" onclick="changeColor(this)" style="margin-top: -5px;">DIGITAL FIDGETAL</div>
         
-        <div class="module">
-            <div class="module-content">
-                <div class="tilt-controls">
-                    <div class="ball-track" onclick="clickBallTrack(event)">
-                        <div class="ball" id="ball"></div>
-                    </div>
-                    <div class="custom-vertical-slider" id="customSlider" onclick="handleSliderClick(event)">
-                        <div class="slider-track"></div>
-                        <div class="slider-thumb" id="sliderThumb"></div>
-                    </div>
-                </div>
-                <div class="label">dibble me</div>
+        <div class="module" style="margin-top: -5px; margin-bottom: 20px;">
+            <div class="ball-track" onclick="clickTrack(event)">
+                <div class="ball" id="ball"></div>
             </div>
+            <div class="label">chuck me</div>
         </div>
         
-        <div class="module" style="margin-top: 15px;">
-            <div class="module-content">
-                <div style="display: flex; align-items: flex-start; gap: 15px;">
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 10px;">
-                        <div class="controls">
-                            <button class="btn" onclick="adjustWaves(1)">+</button>
-                            <button class="btn" onclick="adjustWaves(-1)">-</button>
-                        </div>
-                        <input type="range" min="1" max="10" value="5" class="slider" onchange="updateWaveSpeed(this.value)" style="width: 74px;">
-                    </div>
-                    <div class="wave-container" onclick="ripple(event)">
-                        <canvas class="wave-canvas" id="waveCanvas" width="240" height="60"></canvas>
-                    </div>
+        <div class="module">
+            <div style="display: flex; align-items: center; gap: 15px; justify-content: center;">
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <button class="btn" onclick="changeWaveMode(-1)">•</button>
+                    <button class="btn" onclick="changeWaveMode(1)">○</button>
                 </div>
-                <div class="label">tune me</div>
+                <div class="wave-container" onclick="ripple(event)">
+                    <canvas class="wave-canvas" id="canvas" width="240" height="100"></canvas>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 5px;">
+                    <button class="btn" onclick="adjustWaves(1)">+</button>
+                    <button class="btn" onclick="adjustWaves(-1)">-</button>
+                </div>
             </div>
+            <div class="label">tune me</div>
         </div>
         
         <div style="display: flex; gap: 10px;">
-            <div class="module" style="flex: 3;">
-                <div class="module-content">
-                    <div class="hand-container" onclick="throwTriangle(event)">
-                        <div class="triangle" id="triangle"></div>
-                    </div>
-                    <div class="label">boing me</div>
+            <div class="module" style="flex: 3; cursor: pointer;" onclick="bounce(event)">
+                <div class="hand-container">
+                    <div class="triangle" id="triangle"></div>
                 </div>
+                <div class="label">boing me</div>
             </div>
             
-            <div class="module" style="flex: 0.7;">
-                <div class="module-content">
-                    <div class="diamond-container">
-                        <div class="diamond" onclick="spinDiamond(this, 0)"></div>
-                    </div>
-                    <div class="label" style="margin-top: 12px;">tumble me</div>
-                </div>
+            <div class="module" style="flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="star" onclick="spinStar(this)" style="margin-top: -25px;"></div>
+                <div class="label" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); margin: 0;">tumble me</div>
             </div>
         </div>
         
-        <div class="module" style="padding-bottom: 8px;">
-            <div class="module-content">
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div class="shapes-area" id="shapesArea">
-                        <div class="shape square" id="square0"></div>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <button class="btn" onclick="addSquare()">+</button>
-                        <button class="btn" onclick="removeSquare()">-</button>
-                        <button class="btn" onclick="toggleBouncing()">○</button>
-                    </div>
-                </div>
-                <div class="label">wubba me</div>
+        <div class="module" id="squareModule" style="position: relative; height: 150px; padding: 15px; margin-top: 10px;">
+            <div style="position: absolute; left: 15px; top: 10px; display: flex; flex-direction: column; gap: 0px;">
+                <button class="btn" onclick="addSquare()">+</button>
+                <button class="btn" onclick="removeSquare()">-</button>
+                <button class="btn" onclick="toggleBounce()">○</button>
             </div>
+            <div class="square" id="square0"></div>
+            <div class="label" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); margin: 0;">wubba me</div>
         </div>
     </div>
 
     <script>
-        let ballPos = 190;
+        let ballPos = 188;
         let ballVel = 0;
         let ballInterval = null;
+        let waveMode = 5;
         let waveFreq = 5;
-        let waveAmp = 15;
         let waveSpeed = 2;
-        let waveColor = '#00ff41';
-        let squares = [{x: 130, y: 40, vx: 3, vy: 2}];
-        let nextSquareId = 1;
+        let waveColor = '#00ff00';
+        let squares = [{x: 200, y: 40, vx: 3, vy: 2}];
+        let nextId = 1;
         let bouncing = false;
-        let colors = ['#2196f3', '#e91e63', '#4caf50', '#ff9800', '#9c27b0'];
-        let diamondColors = [0];
-        let titleColors = ['#333', '#e74c3c', '#3498db', '#2ecc71', '#f39c12', '#9b59b6', '#e91e63'];
-        let currentTitleColor = 0;
+        let starRotation = 0;
+        let starSpinning = false;
+        let colors = ['#333', '#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
+        let colorIndex = 0;
 
-        function changeTitleColor() {
-            currentTitleColor = (currentTitleColor + 1) % titleColors.length;
-            const title = document.getElementById('mainTitle');
-            if (title) {
-                title.style.color = titleColors[currentTitleColor];
-                console.log('Title color changed to:', titleColors[currentTitleColor]);
-            }
-        }
+        // Ball physics
+        let dragging = false;
 
-        function showLoadingDemo() {
-            const loadingScreen = document.getElementById('loadingScreen');
-            loadingScreen.style.display = 'flex';
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 3000);
-        }
-
-        function handleSliderClick(e) {
-            const slider = e.currentTarget;
-            const rect = slider.getBoundingClientRect();
-            const y = e.clientY - rect.top;
-            const percentage = Math.max(0, Math.min(100, ((60 - y) / 60) * 100));
-            
-            updateSliderPosition(percentage);
-            moveBall(percentage);
-        }
-
-        function updateSliderPosition(percentage) {
-            const thumb = document.getElementById('sliderThumb');
-            const topPosition = 100 - percentage;
-            thumb.style.top = topPosition + '%';
-        }
-
-        function moveBall(value) {
-            ballPos = 12 + (value / 100) * 314;
-            document.getElementById('ball').style.left = ballPos + 'px';
-        }
-
-        function updateBallSlider() {
-            const percentage = ((ballPos - 12) / 280) * 100;
-            updateSliderPosition(percentage);
-        }
-
-        // Make slider draggable
-        let isDraggingSlider = false;
-        document.getElementById('customSlider').addEventListener('mousedown', function(e) {
-            isDraggingSlider = true;
-            handleSliderClick(e);
+        document.getElementById('ball').addEventListener('mousedown', (e) => {
+            e.stopPropagation();
+            dragging = true;
         });
 
-        document.addEventListener('mousemove', function(e) {
-            if (isDraggingSlider) {
-                const slider = document.getElementById('customSlider');
-                const rect = slider.getBoundingClientRect();
-                const y = e.clientY - rect.top;
-                const percentage = Math.max(0, Math.min(100, ((60 - y) / 60) * 100));
+        document.getElementById('ball').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!dragging) {
+                const ball = document.getElementById('ball');
+                const rect = ball.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const ballCenter = rect.width / 2;
                 
-                updateSliderPosition(percentage);
-                moveBall(percentage);
+                const direction = clickX > ballCenter ? 1 : -1;
+                const strength = Math.abs(clickX - ballCenter) / ballCenter;
+                
+                // More balanced throwing - higher base velocity for both directions
+                ballVel = direction * (15 + strength * 25);
+                
+                startBallPhysics();
             }
         });
 
-        document.addEventListener('mouseup', function() {
-            isDraggingSlider = false;
+        document.addEventListener('mousemove', (e) => {
+            if (dragging) {
+                const track = document.querySelector('.ball-track');
+                const rect = track.getBoundingClientRect();
+                ballPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
+                document.getElementById('ball').style.left = ballPos + 'px';
+                ballVel = 0;
+            }
         });
 
-        function clickBallTrack(e) {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const targetPos = Math.max(12, Math.min(326, e.clientX - rect.left - 12));
-            ballVel = (targetPos - ballPos) * 0.4;
+        document.addEventListener('mouseup', () => dragging = false);
+
+        function startBallPhysics() {
+            if (ballInterval) clearInterval(ballInterval);
             
-            if (!ballInterval) {
-                ballInterval = setInterval(() => {
-                    if (Math.abs(ballVel) < 0.5) {
-                        clearInterval(ballInterval);
-                        ballInterval = null;
-                        ballVel = 0;
-                        return;
-                    }
-                    
-                    ballPos += ballVel;
-                    ballPos = Math.max(12, Math.min(326, ballPos));
-                    
-                    if (ballPos <= 12 || ballPos >= 326) {
-                        ballVel *= -0.7;
-                    }
-                    
-                    ballVel *= 0.95;
-                    document.getElementById('ball').style.left = ballPos + 'px';
-                    updateBallSlider();
-                }, 16);
+            ballInterval = setInterval(() => {
+                if (Math.abs(ballVel) < 0.3) {
+                    clearInterval(ballInterval);
+                    ballInterval = null;
+                    ballVel = 0;
+                    return;
+                }
+                
+                ballPos += ballVel;
+                ballPos = Math.max(14, Math.min(322, ballPos));
+                
+                if (ballPos <= 14 || ballPos >= 322) {
+                    ballVel *= -0.8;
+                }
+                
+                ballVel *= 0.97;
+                document.getElementById('ball').style.left = ballPos + 'px';
+            }, 16);
+        }
+
+        function changeColor(el) {
+            colorIndex = (colorIndex + 1) % colors.length;
+            el.style.color = colors[colorIndex];
+        }
+
+        function clickTrack(e) {
+            if (dragging) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const clickPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
+            
+            // Calculate distance and direction from current ball position
+            const distance = clickPos - ballPos;
+            const direction = distance > 0 ? 1 : -1;
+            const clickDistance = Math.abs(distance);
+            
+            // If clicking ahead of the ball, give it momentum toward that spot
+            if (clickDistance > 20) {
+                // Convert distance to velocity (farther clicks = more velocity, but slower overall)
+                ballVel = direction * Math.min(18, 6 + (clickDistance * 0.08));
+                startBallPhysics();
+            } else {
+                // If clicking very close, just move there smoothly
+                const ball = document.getElementById('ball');
+                ball.style.transition = 'left 0.3s ease-out';
+                ball.style.left = clickPos + 'px';
+                ballPos = clickPos;
+                
+                // Clear any existing physics
+                if (ballInterval) {
+                    clearInterval(ballInterval);
+                    ballInterval = null;
+                }
+                ballVel = 0;
+                
+                // Reset transition after animation
+                setTimeout(() => {
+                    ball.style.transition = '';
+                }, 300);
             }
         }
 
         function drawWaves() {
-            const canvas = document.getElementById('waveCanvas');
+            const canvas = document.getElementById('canvas');
             const ctx = canvas.getContext('2d');
             const time = Date.now() * 0.01 * waveSpeed;
             
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.clearRect(0, 0, 240, 100);
             ctx.strokeStyle = waveColor;
             ctx.lineWidth = 2;
             ctx.beginPath();
             
-            for (let x = 0; x < canvas.width; x++) {
-                const y = canvas.height/2 + Math.sin((x * 0.02 * waveFreq) + time) * waveAmp;
+            for (let x = 0; x < 240; x++) {
+                const y = 50 + Math.sin((x * 0.02 * waveFreq) + time) * 25;
                 if (x === 0) ctx.moveTo(x, y);
                 else ctx.lineTo(x, y);
             }
@@ -601,14 +356,18 @@
         }
 
         function adjustWaves(change) {
-            waveFreq = Math.max(1, Math.min(15, waveFreq + change));
-            waveAmp = Math.max(5, Math.min(25, waveAmp + change * 3));
+            waveSpeed = Math.max(0.5, Math.min(8, waveSpeed + change * 0.5));
         }
 
-        function updateWaveSpeed(value) {
-            waveSpeed = value / 2;
+        function changeWaveMode(direction) {
+            waveMode = Math.max(1, Math.min(10, waveMode + direction));
+            updateWaveSettings(waveMode);
+        }
+
+        function updateWaveSettings(value) {
+            waveFreq = value;
             const colors = ['#ff0000', '#ff8800', '#ffff00', '#88ff00', '#00ff00', '#00ff88', '#00ffff', '#0088ff', '#0000ff', '#8800ff'];
-            waveColor = colors[Math.floor(value) - 1] || '#00ff00';
+            waveColor = colors[value - 1] || '#00ff00';
         }
 
         function ripple(e) {
@@ -617,7 +376,7 @@
             ripple.style.cssText = `
                 position: absolute;
                 left: ${e.clientX - rect.left}px;
-                top: 50%;
+                top: 50px;
                 width: 4px;
                 height: 4px;
                 background: ${waveColor};
@@ -630,121 +389,121 @@
             setTimeout(() => ripple.remove(), 1000);
         }
 
-        function throwTriangle(e) {
+        function bounce(e) {
             const container = e.currentTarget;
             const triangle = document.getElementById('triangle');
             const rect = container.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
+            // Move to click position with scale
             triangle.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) scale(1.5)`;
+            triangle.style.transition = 'all 0.3s ease-out';
             
+            // Start return journey with recoil
             setTimeout(() => {
+                triangle.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
                 triangle.style.transform = 'translate(-50%, -50%) scale(1)';
-            }, 600);
+            }, 300);
+            
+            // Reset transition for next click
+            setTimeout(() => {
+                triangle.style.transition = 'all 0.4s';
+            }, 700);
+        }
+
+        function spinStar(el) {
+            // Allow multiple spins - add more rotation each time
+            const spins = 3 + Math.random() * 2;
+            starRotation += spins * 360;
+            
+            el.style.transition = 'transform 2s ease-out';
+            el.style.transform = `rotate(${starRotation}deg)`;
+            el.style.background = colors[Math.floor(Math.random() * colors.length)];
         }
 
         function addSquare() {
-            const container = document.getElementById('shapesArea');
+            const container = document.getElementById('squareModule');
             const square = document.createElement('div');
-            square.className = 'shape square';
-            square.id = 'square' + nextSquareId;
+            square.className = 'square';
+            square.id = 'square' + nextId;
             
-            const x = Math.random() * 260;
-            const y = Math.random() * 80;
+            const maxWidth = container.offsetWidth - 70;
+            const maxHeight = container.offsetHeight - 60;
+            const x = Math.random() * maxWidth;
+            const y = Math.random() * maxHeight;
             square.style.left = x + 'px';
             square.style.top = y + 'px';
             
+            // Assign a different color to each new square
+            const colorIndex = nextId % colors.length;
+            square.style.background = colors[colorIndex];
+            
             container.appendChild(square);
             squares.push({x, y, vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8});
-            nextSquareId++;
+            nextId++;
             
             makeDraggable(square, squares.length - 1);
         }
 
         function removeSquare() {
             if (squares.length <= 1) return;
-            
             squares.pop();
-            const lastSquare = document.getElementById('square' + (nextSquareId - 1));
+            const lastSquare = document.getElementById('square' + (nextId - 1));
             if (lastSquare) lastSquare.remove();
-            nextSquareId--;
+            nextId--;
         }
 
-        function toggleBouncing() {
+        function toggleBounce() {
             bouncing = !bouncing;
-            
-            if (bouncing) {
-                squares.forEach(sq => {
-                    if (sq.vx === 0 && sq.vy === 0) {
-                        sq.vx = (Math.random() - 0.5) * 6;
-                        sq.vy = (Math.random() - 0.5) * 6;
-                    }
-                });
-                
-                const container = document.getElementById('shapesArea');
-                
-                function animate() {
-                    if (!bouncing) return;
-                    
-                    squares.forEach((sq, i) => {
-                        const element = document.getElementById('square' + i);
-                        if (!element) return;
-                        
-                        sq.x += sq.vx;
-                        sq.y += sq.vy;
-                        
-                        if (sq.x <= 0 || sq.x >= container.offsetWidth - 40) {
-                            sq.vx = -sq.vx;
-                            sq.x = Math.max(0, Math.min(container.offsetWidth - 40, sq.x));
-                        }
-                        
-                        if (sq.y <= 0 || sq.y >= container.offsetHeight - 40) {
-                            sq.vy = -sq.vy;
-                            sq.y = Math.max(0, Math.min(container.offsetHeight - 40, sq.y));
-                        }
-                        
-                        element.style.left = sq.x + 'px';
-                        element.style.top = sq.y + 'px';
-                        element.style.transition = 'none';
-                    });
-                    
-                    requestAnimationFrame(animate);
-                }
-                animate();
-            } else {
-                document.querySelectorAll('.square').forEach(el => {
-                    el.style.transition = 'all 0.3s ease';
-                });
-            }
+            if (bouncing) animate();
         }
 
-        function spinDiamond(element, index) {
-            element.classList.add('spinning');
-            diamondColors[index] = (diamondColors[index] + 1) % colors.length;
-            element.style.background = colors[diamondColors[index]];
+        function animate() {
+            if (!bouncing) return;
             
-            setTimeout(() => {
-                element.classList.remove('spinning');
-            }, 600);
+            squares.forEach((sq, i) => {
+                const el = document.getElementById('square' + i);
+                if (!el) return;
+                
+                const module = el.closest('.module');
+                const maxWidth = module.offsetWidth - 70;
+                const maxHeight = module.offsetHeight - 60;
+                
+                sq.x += sq.vx;
+                sq.y += sq.vy;
+                
+                if (sq.x <= 0 || sq.x >= maxWidth) sq.vx = -sq.vx;
+                if (sq.y <= 0 || sq.y >= maxHeight) sq.vy = -sq.vy;
+                
+                sq.x = Math.max(0, Math.min(maxWidth, sq.x));
+                sq.y = Math.max(0, Math.min(maxHeight, sq.y));
+                
+                el.style.left = sq.x + 'px';
+                el.style.top = sq.y + 'px';
+            });
+            
+            requestAnimationFrame(animate);
         }
 
-        function makeDraggable(element, index) {
+        function makeDraggable(el, index) {
             let isDragging = false;
             
-            element.addEventListener('mousedown', (e) => {
+            el.addEventListener('mousedown', (e) => {
                 if (bouncing) return;
                 isDragging = true;
                 
                 const moveHandler = (e) => {
                     if (!isDragging) return;
-                    const container = element.parentNode;
+                    const container = document.getElementById('squareModule');
                     const rect = container.getBoundingClientRect();
-                    const x = Math.max(0, Math.min(container.offsetWidth - 28, e.clientX - rect.left - 14));
-                    const y = Math.max(0, Math.min(container.offsetHeight - 28, e.clientY - rect.top - 14));
+                    const maxWidth = container.offsetWidth - 70;
+                    const maxHeight = container.offsetHeight - 60;
+                    const x = Math.max(0, Math.min(maxWidth, e.clientX - rect.left - 20));
+                    const y = Math.max(0, Math.min(maxHeight, e.clientY - rect.top - 20));
                     
-                    element.style.left = x + 'px';
-                    element.style.top = y + 'px';
+                    el.style.left = x + 'px';
+                    el.style.top = y + 'px';
                     squares[index].x = x;
                     squares[index].y = y;
                 };
@@ -758,32 +517,30 @@
                 document.addEventListener('mousemove', moveHandler);
                 document.addEventListener('mouseup', upHandler);
             });
+            
+            // Add click handler for bounce to bottom
+            el.addEventListener('click', (e) => {
+                if (bouncing || isDragging) return;
+                e.stopPropagation();
+                
+                const container = document.getElementById('squareModule');
+                // Account for container padding (15px) + label space (15px) + square height (40px)
+                const targetY = container.offsetHeight - 15 - 15 - 40; // Real bottom position
+                
+                // Animate to bottom with bounce
+                el.style.transition = 'top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                el.style.top = targetY + 'px';
+                squares[index].y = targetY;
+                
+                // Reset transition
+                setTimeout(() => {
+                    el.style.transition = '';
+                }, 600);
+            });
         }
 
-        // Initialize loading screen and page
-        document.addEventListener('DOMContentLoaded', function() {
-            // Ensure loading screen is visible on page load
-            const loadingScreen = document.getElementById('loadingScreen');
-            loadingScreen.style.display = 'flex';
-            
-            // Hide loading screen after 3 seconds
-            setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 3000);
-            
-            // Initialize other components
-            drawWaves();
-            makeDraggable(document.getElementById('square0'), 0);
-        });
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                0% { width: 4px; height: 4px; opacity: 1; }
-                100% { width: 40px; height: 40px; opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
+        drawWaves();
+        makeDraggable(document.getElementById('square0'), 0);
     </script>
 </body>
 </html>
