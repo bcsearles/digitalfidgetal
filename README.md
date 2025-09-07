@@ -1,7 +1,9 @@
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <style>
         * {
             margin: 0;
@@ -59,6 +61,29 @@
             }
         }
 
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            color: #333;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            font-family: 'Space Grotesk', monospace, sans-serif;
+        }
+
+        .loading-text {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
         .fidget-device {
             background: white;
             border: 3px solid #333;
@@ -68,6 +93,30 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             margin: 0 auto;
             max-width: calc(100vw - 40px);
+            position: relative;
+        }
+
+        .welcome-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: white;
+            border: 2px solid #333;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .welcome-btn:hover {
+            background: #f0f0f0;
+            transform: scale(1.1);
         }
 
         .title {
@@ -362,7 +411,12 @@
     </style>
 </head>
 <body>
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-text">WELCOME TO<br>DIGITAL FIDGETAL</div>
+    </div>
+    
     <div class="fidget-device">
+        <button class="welcome-btn" onclick="showWelcomeScreen()">◉</button>
         <div class="title">DIGITAL FIDGETAL</div>
         <div class="subtitle" onclick="changeTitleColor()">the remedy for computertime restlessness</div>
         
@@ -449,6 +503,14 @@
         let bouncing = false;
         let colors = ['#2196f3', '#e91e63', '#4caf50', '#ff9800', '#9c27b0'];
         let diamondColors = [0];
+
+        function showWelcomeScreen() {
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.style.display = 'flex';
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 3000);
+        }
 
         function handleSliderClick(e) {
             const slider = e.currentTarget;
@@ -705,6 +767,13 @@
                 document.addEventListener('mouseup', upHandler);
             });
         }
+
+        // Initialize loading screen and page
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+            }, 3000);
+        });
 
         // Initialize
         drawWaves();
