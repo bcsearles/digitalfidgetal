@@ -14,13 +14,10 @@
         body {
             font-family: 'Space Grotesk', monospace, sans-serif;
             background: #f0f0f0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
+            margin: 0;
+            padding: 40px 20px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         body::before {
@@ -71,6 +68,8 @@
             padding: 20px;
             width: 450px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 0 auto;
+            max-width: calc(100vw - 40px);
         }
 
         .title {
@@ -157,53 +156,8 @@
             padding-right: 15px;
         }
 
-        .vertical-slider {
-            width: 5px;
-            height: 60px;
-            background: #888 !important;
-            border-radius: 3px;
-            appearance: none;
-            cursor: pointer;
-            writing-mode: bt-lr;
-            -webkit-appearance: slider-vertical;
-            margin-left: 20px;
-            outline: none;
-        }
-
-        .vertical-slider::-webkit-slider-track {
-            background: #888 !important;
-            border-radius: 3px;
-            width: 5px;
-        }
-
-        .vertical-slider::-moz-range-track {
-            background: #888 !important;
-            border-radius: 3px;
-            width: 5px;
-        }
-
-        .vertical-slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: white !important;
-            border: 2px solid #000 !important;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        .vertical-slider::-webkit-slider-thumb {
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            background: white;
-            border: 2px solid #000;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
         .ball-track {
-            width: 280px;
+            width: 350px;
             height: 50px;
             background: #f8f8f8;
             border: 2px solid #ddd;
@@ -216,14 +170,46 @@
         .ball {
             width: 24px;
             height: 24px;
-            background: #666;
+            background: #f1c40f;
             border: 2px solid #000;
             border-radius: 50%;
             position: absolute;
             top: 12px;
-            left: 134px;
+            left: 190px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .custom-vertical-slider {
+            width: 20px;
+            height: 60px;
+            position: relative;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .slider-track {
+            width: 5px;
+            height: 60px;
+            background: #888;
+            border-radius: 3px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .slider-thumb {
+            width: 16px;
+            height: 16px;
+            background: white;
+            border: 2px solid #000;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 34%;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            transition: top 0.1s ease;
         }
 
         .wave-container {
@@ -303,7 +289,7 @@
 
         .shapes-area {
             width: 300px;
-            height: 180px;
+            height: 120px;
             background: #f8f8f8;
             border: 2px solid #ddd;
             border-radius: 12px;
@@ -323,7 +309,7 @@
             background: #27ae60;
             border: 3px solid #333;
             border-radius: 6px;
-            top: 70px;
+            top: 40px;
             left: 130px;
         }
 
@@ -388,8 +374,10 @@
                     <div class="ball-track" onclick="clickBallTrack(event)">
                         <div class="ball" id="ball"></div>
                     </div>
-                    <input type="range" min="0" max="100" value="57" class="vertical-slider" 
-                           id="ballSlider" oninput="moveBall(this.value)" orient="vertical">
+                    <div class="custom-vertical-slider" id="customSlider" onclick="handleSliderClick(event)">
+                        <div class="slider-track"></div>
+                        <div class="slider-thumb" id="sliderThumb"></div>
+                    </div>
                 </div>
                 <div class="label">wibble me</div>
             </div>
@@ -458,24 +446,64 @@
         let waveAmp = 15;
         let waveSpeed = 2;
         let waveColor = '#00ff41';
-        let squares = [{x: 130, y: 70, vx: 3, vy: 2}];
+        let squares = [{x: 130, y: 40, vx: 3, vy: 2}];
         let nextSquareId = 1;
         let bouncing = false;
         let colors = ['#2196f3', '#e91e63', '#4caf50', '#ff9800', '#9c27b0'];
         let diamondColors = [0];
 
+        function handleSliderClick(e) {
+            const slider = e.currentTarget;
+            const rect = slider.getBoundingClientRect();
+            const y = e.clientY - rect.top;
+            const percentage = Math.max(0, Math.min(100, ((60 - y) / 60) * 100));
+            
+            updateSliderPosition(percentage);
+            moveBall(percentage);
+        }
+
+        function updateSliderPosition(percentage) {
+            const thumb = document.getElementById('sliderThumb');
+            const topPosition = 100 - percentage;
+            thumb.style.top = topPosition + '%';
+        }
+
         function moveBall(value) {
-            ballPos = 12 + (value / 100) * 244;
+            ballPos = 12 + (value / 100) * 314;
             document.getElementById('ball').style.left = ballPos + 'px';
         }
 
         function updateBallSlider() {
-            document.getElementById('ballSlider').value = ((ballPos - 12) / 244) * 100;
+            const percentage = ((ballPos - 12) / 314) * 100;
+            updateSliderPosition(percentage);
         }
+
+        // Make slider draggable
+        let isDraggingSlider = false;
+        document.getElementById('customSlider').addEventListener('mousedown', function(e) {
+            isDraggingSlider = true;
+            handleSliderClick(e);
+        });
+
+        document.addEventListener('mousemove', function(e) {
+            if (isDraggingSlider) {
+                const slider = document.getElementById('customSlider');
+                const rect = slider.getBoundingClientRect();
+                const y = e.clientY - rect.top;
+                const percentage = Math.max(0, Math.min(100, ((60 - y) / 60) * 100));
+                
+                updateSliderPosition(percentage);
+                moveBall(percentage);
+            }
+        });
+
+        document.addEventListener('mouseup', function() {
+            isDraggingSlider = false;
+        });
 
         function clickBallTrack(e) {
             const rect = e.currentTarget.getBoundingClientRect();
-            const targetPos = Math.max(12, Math.min(256, e.clientX - rect.left - 12));
+            const targetPos = Math.max(12, Math.min(326, e.clientX - rect.left - 12));
             ballVel = (targetPos - ballPos) * 0.4;
             
             if (!ballInterval) {
@@ -488,9 +516,9 @@
                     }
                     
                     ballPos += ballVel;
-                    ballPos = Math.max(12, Math.min(256, ballPos));
+                    ballPos = Math.max(12, Math.min(326, ballPos));
                     
-                    if (ballPos <= 12 || ballPos >= 256) {
+                    if (ballPos <= 12 || ballPos >= 326) {
                         ballVel *= -0.7;
                     }
                     
@@ -557,10 +585,10 @@
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
-            triangle.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) rotate(45deg) scale(1.5)`;
+            triangle.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) scale(1.5)`;
             
             setTimeout(() => {
-                triangle.style.transform = 'translate(-50%, -50%) rotate(45deg) scale(1)';
+                triangle.style.transform = 'translate(-50%, -50%) scale(1)';
             }, 600);
         }
 
@@ -571,7 +599,7 @@
             square.id = 'square' + nextSquareId;
             
             const x = Math.random() * 260;
-            const y = Math.random() * 140;
+            const y = Math.random() * 80;
             square.style.left = x + 'px';
             square.style.top = y + 'px';
             
