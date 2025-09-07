@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -773,14 +773,16 @@
 
         // Initialize loading screen and page
         document.addEventListener('DOMContentLoaded', function() {
-            // Show loading screen on page load
+            // Ensure loading screen is visible on page load
+            const loadingScreen = document.getElementById('loadingScreen');
+            loadingScreen.style.display = 'flex';
+            
+            // Hide loading screen after 3 seconds
             setTimeout(() => {
-                document.getElementById('loadingScreen').style.display = 'none';
+                loadingScreen.style.display = 'none';
             }, 3000);
-        });
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Initialize other components
             drawWaves();
             makeDraggable(document.getElementById('square0'), 0);
         });
