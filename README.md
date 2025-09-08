@@ -568,10 +568,9 @@
         
         // Force shadows on all elements
         setTimeout(() => {
-            document.querySelectorAll('.ball, .triangle, .star, .square, .btn, .module, .ball-track, .wave-container, .title, .fidget-device').forEach(el => {
+            document.querySelectorAll('.ball, .triangle, .square, .btn, .module, .ball-track, .wave-container, .title, .fidget-device').forEach(el => {
                 if (el.classList.contains('ball')) ensureShadow(el);
                 else if (el.classList.contains('triangle')) ensureShadow(el);
-                else if (el.classList.contains('star')) ensureShadow(el, '4px 4px 0px #000');
                 else if (el.classList.contains('square')) ensureShadow(el);
                 else if (el.classList.contains('btn')) ensureShadow(el);
                 else if (el.classList.contains('module')) ensureShadow(el, '5px 5px 0px #000');
