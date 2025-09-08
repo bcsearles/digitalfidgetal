@@ -213,7 +213,7 @@
             <div class="label">tune me</div>
         </div>
         
-        <div style="display: flex; gap: 10px;">
+        <div style="display: flex; gap: 15px;">
             <div class="module" style="flex: 3; cursor: pointer;" onclick="bounce(event)">
                 <div class="hand-container">
                     <div class="triangle" id="triangle"></div>
