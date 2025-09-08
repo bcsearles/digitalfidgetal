@@ -4,12 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My GitHub Page</title>
+
+  <!-- Google Fonts: Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+
+  <!-- Your CSS file -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Hello GitHub Pages!</h1>
+  <h1>Hello GitHub!</h1>
 </body>
 </html>
 <html lang="en">
@@ -30,23 +35,14 @@
             padding: 40px 20px;
         }
 
-        .shadow {
-            box-shadow: 6px 6px 0px #000;
-        }
-
-        .light-shadow {
-            box-shadow: 4px 4px 0px #666;
-        }
-
         .fidget-device {
             background: white;
             border: 3px solid #333;
             border-radius: 20px;
-            padding: 20px 20px 10px 20px;
+            padding: 20px;
             width: 450px;
             margin: 0 auto;
             max-width: calc(100vw - 40px);
-            box-shadow: 8px 8px 0px #000;
         }
 
         .title {
@@ -54,15 +50,11 @@
             font-size: 30px;
             font-weight: bold;
             color: #333;
-            padding: 20px 10px;
+            padding: 10px;
             border: 2px solid #000;
             border-radius: 8px;
             margin-bottom: 20px;
             cursor: pointer;
-            width: 85%;
-            margin-left: auto;
-            margin-right: auto;
-            box-shadow: 5px 5px 0px #000;
         }
 
         .module {
@@ -71,7 +63,6 @@
             margin: 10px 0;
             padding: 15px;
             text-align: center;
-            box-shadow: 5px 5px 0px #000;
         }
 
         .btn {
@@ -83,7 +74,6 @@
             font-size: 16px;
             cursor: pointer;
             margin: 5px;
-            box-shadow: 3px 3px 0px #000;
         }
 
         .btn:hover {
@@ -99,7 +89,6 @@
             position: relative;
             margin: 0 auto;
             cursor: pointer;
-            box-shadow: 4px 4px 0px #000;
         }
 
         .ball {
@@ -112,7 +101,6 @@
             top: 10px;
             left: 188px;
             cursor: grab;
-            box-shadow: 3px 3px 0px #000;
         }
 
         .wave-container {
@@ -123,7 +111,6 @@
             border-radius: 8px;
             margin: 0 auto;
             cursor: pointer;
-            box-shadow: 4px 4px 0px #666;
         }
 
         .wave-canvas {
@@ -150,25 +137,17 @@
             border: 2px solid #000;
             border-radius: 50%;
             transition: all 0.4s;
-            box-shadow: 3px 3px 0px #000;
         }
 
-        .star {
-            width: 50px;
-            height: 50px;
-            background: #f39c12;
+        .diamond {
+            width: 40px;
+            height: 40px;
+            background: #2196f3;
             border: 3px solid #333;
-            border-radius: 6px;
-            margin: 0 auto;
+            transform: rotate(45deg);
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            color: #fff;
-            user-select: none;
-            transition: transform 0.3s ease;
-            box-shadow: 4px 4px 0px #000;
+            margin: 0 auto;
+            transition: all 0.3s;
         }
 
         .square {
@@ -178,36 +157,27 @@
             border: 3px solid #333;
             border-radius: 6px;
             position: absolute;
-            top: 20px;
+            top: 40px;
             left: 200px;
             cursor: move;
-            box-shadow: 3px 3px 0px #000;
         }
 
         .label {
             font-size: 10px;
             color: #666;
-            margin-top: 20px;
-        }
-
-        @keyframes ripple {
-            0% { width: 4px; height: 4px; opacity: 1; }
-            100% { width: 40px; height: 40px; opacity: 0; }
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
     <div class="fidget-device">
-        <div class="title" onclick="changeColor(this)" style="margin-top: -5px;">
-            DIGITAL FIDGETAL
-            <div style="font-size: 12px; color: #666; font-weight: normal; margin-top: 5px;">the remedy for computertime restlessness</div>
-        </div>
+        <div class="title" onclick="changeColor(this)">DIGITAL FIDGETAL</div>
         
-        <div class="module" style="margin-top: -5px; margin-bottom: 20px;">
+        <div class="module">
             <div class="ball-track" onclick="clickTrack(event)">
                 <div class="ball" id="ball"></div>
             </div>
-            <div class="label">chuck me</div>
+            <div class="label">dibble me</div>
         </div>
         
         <div class="module">
@@ -235,20 +205,20 @@
                 <div class="label">boing me</div>
             </div>
             
-            <div class="module" style="flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <div class="star" onclick="spinStar(this)" style="margin-top: -25px;"></div>
-                <div class="label" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); margin: 0;">tumble me</div>
+            <div class="module" style="flex: 1;">
+                <div class="diamond" onclick="spin(this)"></div>
+                <div class="label">tumble me</div>
             </div>
         </div>
         
-        <div class="module" id="squareModule" style="position: relative; height: 150px; padding: 15px; margin-top: 10px;">
+        <div class="module" id="squareModule" style="position: relative; height: 150px; padding: 15px;">
             <div style="position: absolute; left: 15px; top: 10px; display: flex; flex-direction: column; gap: 0px;">
                 <button class="btn" onclick="addSquare()">+</button>
                 <button class="btn" onclick="removeSquare()">-</button>
                 <button class="btn" onclick="toggleBounce()">○</button>
             </div>
             <div class="square" id="square0"></div>
-            <div class="label" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); margin: 0;">wubba me</div>
+            <div class="label" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); margin: 0;">wubba me</div>
         </div>
     </div>
 
@@ -260,19 +230,14 @@
         let waveFreq = 5;
         let waveSpeed = 2;
         let waveColor = '#00ff00';
-        let squares = [{x: 200, y: 20, vx: 3, vy: 2}];
+        let squares = [{x: 200, y: 40, vx: 3, vy: 2}];
         let nextId = 1;
         let bouncing = false;
-        let starRotation = 0;
         let colors = ['#333', '#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
         let colorIndex = 0;
 
         // Ball physics
         let dragging = false;
-
-        function ensureShadow(element, shadow = '3px 3px 0px #000') {
-            element.style.boxShadow = shadow;
-        }
 
         document.getElementById('ball').addEventListener('mousedown', (e) => {
             e.stopPropagation();
@@ -289,8 +254,8 @@
                 
                 const direction = clickX > ballCenter ? 1 : -1;
                 const strength = Math.abs(clickX - ballCenter) / ballCenter;
+                ballVel = direction * (10 + strength * 20);
                 
-                ballVel = direction * (15 + strength * 25);
                 startBallPhysics();
             }
         });
@@ -300,9 +265,7 @@
                 const track = document.querySelector('.ball-track');
                 const rect = track.getBoundingClientRect();
                 ballPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
-                const ball = document.getElementById('ball');
-                ball.style.left = ballPos + 'px';
-                ensureShadow(ball);
+                document.getElementById('ball').style.left = ballPos + 'px';
                 ballVel = 0;
             }
         });
@@ -328,48 +291,20 @@
                 }
                 
                 ballVel *= 0.97;
-                const ball = document.getElementById('ball');
-                ball.style.left = ballPos + 'px';
-                ensureShadow(ball);
+                document.getElementById('ball').style.left = ballPos + 'px';
             }, 16);
         }
 
         function changeColor(el) {
             colorIndex = (colorIndex + 1) % colors.length;
             el.style.color = colors[colorIndex];
-            ensureShadow(el, '5px 5px 0px #000');
         }
 
         function clickTrack(e) {
             if (dragging) return;
             const rect = e.currentTarget.getBoundingClientRect();
-            const clickPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
-            
-            const distance = clickPos - ballPos;
-            const direction = distance > 0 ? 1 : -1;
-            const clickDistance = Math.abs(distance);
-            
-            if (clickDistance > 20) {
-                ballVel = direction * Math.min(18, 6 + (clickDistance * 0.08));
-                startBallPhysics();
-            } else {
-                const ball = document.getElementById('ball');
-                ball.style.transition = 'left 0.3s ease-out';
-                ball.style.left = clickPos + 'px';
-                ballPos = clickPos;
-                ensureShadow(ball);
-                
-                if (ballInterval) {
-                    clearInterval(ballInterval);
-                    ballInterval = null;
-                }
-                ballVel = 0;
-                
-                setTimeout(() => {
-                    ball.style.transition = '';
-                    ensureShadow(ball);
-                }, 300);
-            }
+            ballPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
+            document.getElementById('ball').style.left = ballPos + 'px';
         }
 
         function drawWaves() {
@@ -433,29 +368,13 @@
             const y = e.clientY - rect.top;
             
             triangle.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) scale(1.5)`;
-            triangle.style.transition = 'all 0.3s ease-out';
-            ensureShadow(triangle);
-            
-            setTimeout(() => {
-                triangle.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-                triangle.style.transform = 'translate(-50%, -50%) scale(1)';
-                ensureShadow(triangle);
-            }, 300);
-            
-            setTimeout(() => {
-                triangle.style.transition = 'all 0.4s';
-                ensureShadow(triangle);
-            }, 700);
+            setTimeout(() => triangle.style.transform = 'translate(-50%, -50%) scale(1)', 600);
         }
 
-        function spinStar(el) {
-            const spins = 3 + Math.random() * 2;
-            starRotation += spins * 360;
-            
-            el.style.transition = 'transform 2s ease-out';
-            el.style.transform = `rotate(${starRotation}deg)`;
+        function spin(el) {
+            el.style.transform = 'rotate(405deg)';
             el.style.background = colors[Math.floor(Math.random() * colors.length)];
-            ensureShadow(el, '4px 4px 0px #000');
+            setTimeout(() => el.style.transform = 'rotate(45deg)', 600);
         }
 
         function addSquare() {
@@ -470,10 +389,6 @@
             const y = Math.random() * maxHeight;
             square.style.left = x + 'px';
             square.style.top = y + 'px';
-            
-            const colorIndex = nextId % colors.length;
-            square.style.background = colors[colorIndex];
-            ensureShadow(square);
             
             container.appendChild(square);
             squares.push({x, y, vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8});
@@ -517,7 +432,6 @@
                 
                 el.style.left = sq.x + 'px';
                 el.style.top = sq.y + 'px';
-                ensureShadow(el, '2px 2px 0px #145a32');
             });
             
             requestAnimationFrame(animate);
@@ -541,7 +455,6 @@
                     
                     el.style.left = x + 'px';
                     el.style.top = y + 'px';
-                    ensureShadow(el);
                     squares[index].x = x;
                     squares[index].y = y;
                 };
@@ -555,44 +468,19 @@
                 document.addEventListener('mousemove', moveHandler);
                 document.addEventListener('mouseup', upHandler);
             });
-            
-            el.addEventListener('click', (e) => {
-                if (bouncing || isDragging) return;
-                e.stopPropagation();
-                
-                const container = document.getElementById('squareModule');
-                const targetY = container.offsetHeight - 55;
-                
-                el.style.transition = 'top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
-                el.style.top = targetY + 'px';
-                ensureShadow(el);
-                squares[index].y = targetY;
-                
-                setTimeout(() => {
-                    el.style.transition = '';
-                    ensureShadow(el);
-                }, 600);
-            });
         }
 
-        // Initialize
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                0% { width: 4px; height: 4px; opacity: 1; }
+                100% { width: 40px; height: 40px; opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+
         drawWaves();
         makeDraggable(document.getElementById('square0'), 0);
-        
-        // Force shadows on all elements
-        setTimeout(() => {
-            document.querySelectorAll('.ball, .triangle, .square, .btn, .module, .ball-track, .wave-container, .title, .fidget-device').forEach(el => {
-                if (el.classList.contains('ball')) ensureShadow(el);
-                else if (el.classList.contains('triangle')) ensureShadow(el);
-                else if (el.classList.contains('square')) ensureShadow(el);
-                else if (el.classList.contains('btn')) ensureShadow(el);
-                else if (el.classList.contains('module')) ensureShadow(el, '5px 5px 0px #000');
-                else if (el.classList.contains('ball-track')) ensureShadow(el, '4px 4px 0px #000');
-                else if (el.classList.contains('wave-container')) ensureShadow(el, '4px 4px 0px #666');
-                else if (el.classList.contains('title')) ensureShadow(el, '5px 5px 0px #000');
-                else if (el.classList.contains('fidget-device')) ensureShadow(el, '8px 8px 0px #000');
-            });
-        }, 100);
     </script>
 </body>
 </html>
