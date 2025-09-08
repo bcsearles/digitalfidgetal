@@ -1,24 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My GitHub Page</title>
-
-  <!-- Google Fonts: Space Grotesk -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-
-  <!-- Your CSS file -->
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h1>Hello GitHub!</h1>
-</body>
-</html>
-<html lang="en">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Digital Fidgetal</title>
@@ -39,7 +21,7 @@
             background: white;
             border: 3px solid #333;
             border-radius: 20px;
-            padding: 20px;
+            padding: 20px 20px 10px 20px;
             width: 450px;
             margin: 0 auto;
             max-width: calc(100vw - 40px);
@@ -50,11 +32,14 @@
             font-size: 30px;
             font-weight: bold;
             color: #333;
-            padding: 10px;
+            padding: 20px 10px;
             border: 2px solid #000;
             border-radius: 8px;
             margin-bottom: 20px;
             cursor: pointer;
+            width: 85%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .module {
@@ -139,15 +124,21 @@
             transition: all 0.4s;
         }
 
-        .diamond {
-            width: 40px;
-            height: 40px;
-            background: #2196f3;
+        .star {
+            width: 50px;
+            height: 50px;
+            background: #f39c12;
             border: 3px solid #333;
-            transform: rotate(45deg);
-            cursor: pointer;
+            border-radius: 6px;
             margin: 0 auto;
-            transition: all 0.3s;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: #fff;
+            user-select: none;
+            transition: transform 0.3s ease;
         }
 
         .square {
@@ -165,19 +156,27 @@
         .label {
             font-size: 10px;
             color: #666;
-            margin-top: 10px;
+            margin-top: 20px;
+        }
+
+        @keyframes ripple {
+            0% { width: 4px; height: 4px; opacity: 1; }
+            100% { width: 40px; height: 40px; opacity: 0; }
         }
     </style>
 </head>
 <body>
     <div class="fidget-device">
-        <div class="title" onclick="changeColor(this)">DIGITAL FIDGETAL</div>
+        <div class="title" onclick="changeColor(this)" style="margin-top: -5px;">
+            DIGITAL FIDGETAL
+            <div style="font-size: 12px; color: #666; font-weight: normal; margin-top: 5px;">the remedy for computertime restlessness</div>
+        </div>
         
-        <div class="module">
+        <div class="module" style="margin-top: -5px; margin-bottom: 20px;">
             <div class="ball-track" onclick="clickTrack(event)">
                 <div class="ball" id="ball"></div>
             </div>
-            <div class="label">dibble me</div>
+            <div class="label">chuck me</div>
         </div>
         
         <div class="module">
@@ -205,20 +204,20 @@
                 <div class="label">boing me</div>
             </div>
             
-            <div class="module" style="flex: 1;">
-                <div class="diamond" onclick="spin(this)"></div>
-                <div class="label">tumble me</div>
+            <div class="module" style="flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <div class="star" onclick="spinStar(this)" style="margin-top: -25px;"></div>
+                <div class="label" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); margin: 0;">tumble me</div>
             </div>
         </div>
         
-        <div class="module" id="squareModule" style="position: relative; height: 150px; padding: 15px;">
+        <div class="module" id="squareModule" style="position: relative; height: 150px; padding: 15px; margin-top: 10px;">
             <div style="position: absolute; left: 15px; top: 10px; display: flex; flex-direction: column; gap: 0px;">
                 <button class="btn" onclick="addSquare()">+</button>
                 <button class="btn" onclick="removeSquare()">-</button>
                 <button class="btn" onclick="toggleBounce()">○</button>
             </div>
             <div class="square" id="square0"></div>
-            <div class="label" style="position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); margin: 0;">wubba me</div>
+            <div class="label" style="position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); margin: 0;">wubba me</div>
         </div>
     </div>
 
@@ -233,6 +232,8 @@
         let squares = [{x: 200, y: 40, vx: 3, vy: 2}];
         let nextId = 1;
         let bouncing = false;
+        let starRotation = 0;
+        let starSpinning = false;
         let colors = ['#333', '#e74c3c', '#3498db', '#2ecc71', '#f39c12'];
         let colorIndex = 0;
 
@@ -254,7 +255,9 @@
                 
                 const direction = clickX > ballCenter ? 1 : -1;
                 const strength = Math.abs(clickX - ballCenter) / ballCenter;
-                ballVel = direction * (10 + strength * 20);
+                
+                // More balanced throwing - higher base velocity for both directions
+                ballVel = direction * (15 + strength * 25);
                 
                 startBallPhysics();
             }
@@ -303,8 +306,37 @@
         function clickTrack(e) {
             if (dragging) return;
             const rect = e.currentTarget.getBoundingClientRect();
-            ballPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
-            document.getElementById('ball').style.left = ballPos + 'px';
+            const clickPos = Math.max(14, Math.min(322, e.clientX - rect.left - 14));
+            
+            // Calculate distance and direction from current ball position
+            const distance = clickPos - ballPos;
+            const direction = distance > 0 ? 1 : -1;
+            const clickDistance = Math.abs(distance);
+            
+            // If clicking ahead of the ball, give it momentum toward that spot
+            if (clickDistance > 20) {
+                // Convert distance to velocity (farther clicks = more velocity, but slower overall)
+                ballVel = direction * Math.min(18, 6 + (clickDistance * 0.08));
+                startBallPhysics();
+            } else {
+                // If clicking very close, just move there smoothly
+                const ball = document.getElementById('ball');
+                ball.style.transition = 'left 0.3s ease-out';
+                ball.style.left = clickPos + 'px';
+                ballPos = clickPos;
+                
+                // Clear any existing physics
+                if (ballInterval) {
+                    clearInterval(ballInterval);
+                    ballInterval = null;
+                }
+                ballVel = 0;
+                
+                // Reset transition after animation
+                setTimeout(() => {
+                    ball.style.transition = '';
+                }, 300);
+            }
         }
 
         function drawWaves() {
@@ -367,14 +399,30 @@
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
             
+            // Move to click position with scale
             triangle.style.transform = `translate(${x - container.offsetWidth/2}px, ${y - container.offsetHeight/2}px) scale(1.5)`;
-            setTimeout(() => triangle.style.transform = 'translate(-50%, -50%) scale(1)', 600);
+            triangle.style.transition = 'all 0.3s ease-out';
+            
+            // Start return journey with recoil
+            setTimeout(() => {
+                triangle.style.transition = 'all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                triangle.style.transform = 'translate(-50%, -50%) scale(1)';
+            }, 300);
+            
+            // Reset transition for next click
+            setTimeout(() => {
+                triangle.style.transition = 'all 0.4s';
+            }, 700);
         }
 
-        function spin(el) {
-            el.style.transform = 'rotate(405deg)';
+        function spinStar(el) {
+            // Allow multiple spins - add more rotation each time
+            const spins = 3 + Math.random() * 2;
+            starRotation += spins * 360;
+            
+            el.style.transition = 'transform 2s ease-out';
+            el.style.transform = `rotate(${starRotation}deg)`;
             el.style.background = colors[Math.floor(Math.random() * colors.length)];
-            setTimeout(() => el.style.transform = 'rotate(45deg)', 600);
         }
 
         function addSquare() {
@@ -389,6 +437,10 @@
             const y = Math.random() * maxHeight;
             square.style.left = x + 'px';
             square.style.top = y + 'px';
+            
+            // Assign a different color to each new square
+            const colorIndex = nextId % colors.length;
+            square.style.background = colors[colorIndex];
             
             container.appendChild(square);
             squares.push({x, y, vx: (Math.random() - 0.5) * 8, vy: (Math.random() - 0.5) * 8});
@@ -468,16 +520,27 @@
                 document.addEventListener('mousemove', moveHandler);
                 document.addEventListener('mouseup', upHandler);
             });
+            
+            // Add click handler for bounce to bottom
+            el.addEventListener('click', (e) => {
+                if (bouncing || isDragging) return;
+                e.stopPropagation();
+                
+                const container = document.getElementById('squareModule');
+                // Go almost to the very bottom - just account for square height and tiny margin
+                const targetY = container.offsetHeight - 45; // Square height (40px) + 5px margin
+                
+                // Animate to bottom with bounce
+                el.style.transition = 'top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                el.style.top = targetY + 'px';
+                squares[index].y = targetY;
+                
+                // Reset transition
+                setTimeout(() => {
+                    el.style.transition = '';
+                }, 600);
+            });
         }
-
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes ripple {
-                0% { width: 4px; height: 4px; opacity: 1; }
-                100% { width: 40px; height: 40px; opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
 
         drawWaves();
         makeDraggable(document.getElementById('square0'), 0);
