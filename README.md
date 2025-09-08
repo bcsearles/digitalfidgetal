@@ -8,7 +8,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: monospace;
+            font-family: 'Space Grotesk', sans-serif;
             background: #f0f0f0;
             padding: 40px 20px;
         }
